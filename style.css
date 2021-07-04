@@ -26,7 +26,9 @@
 html {
     --purple: #56405c;
     --blue: #6594e5;
+    --blue2: #c8f3ff;
     --pink: #f63886;
+    --pink2: #ffc2ee;
 
     background-color: var(--purple);
     color: #fff;
@@ -51,10 +53,12 @@ header #logo {
 
 a {
     color: var(--blue);
+    background-color: var(--blue2);
 }
 
 a:visited {
     color: var(--pink);
+    background-color: var(--pink2);
 }
 
 body > p {
@@ -90,6 +94,7 @@ h4 {
 .gamelist > li h4 {
     margin: 0;
 }
+
 
 .gamelist .thumbnail {
     width: 300px;
