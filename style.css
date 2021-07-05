@@ -25,12 +25,13 @@
 
 html {
     --purple: #56405c;
+    --purple2: #3a2b3f;
     --blue: #6594e5;
     --blue2: #c8f3ff;
     --pink: #f63886;
     --pink2: #ffc2ee;
 
-    background-color: var(--purple);
+    background-color: var(--purple2);
     color: #fff;
 }
 
@@ -41,7 +42,13 @@ body {
 }
 
 header {
+    z-index: 8964;
+    background-color: var(--purple);
     box-shadow: 0px 1px 3px #000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
 }
 
 header #logo {
@@ -51,14 +58,52 @@ header #logo {
     margin: 0 auto;
 }
 
+#main {
+    width: auto;
+    max-width: 540px;
+    margin: 0 auto;
+    margin-top: 128px;
+}
+
 a {
-    color: var(--blue);
-    background-color: var(--blue2);
+    color: var(--blue2);
+    position: relative;
+    text-decoration: none;
+}
+
+a::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 6px;
+    background-color: var(--blue);
+    z-index: -1;
 }
 
 a:visited {
-    color: var(--pink);
-    background-color: var(--pink2);
+    color: var(--pink2);
+}
+a:visited:before {
+    background-color: var(--pink);
+}
+
+a.big-bottom-link {
+    display: block;
+    text-align: center;
+    width: 256px;
+    margin: 8px auto 24px;
+    padding: 0.8em;
+    background-color: var(--blue);
+    color: black;
+    border-radius: 8px;
+}
+a.big-bottom-link:hover {
+    background-color: var(--blue2);
+}
+a.big-bottom-link::before {
+    display: none;
 }
 
 body > p {
@@ -74,10 +119,12 @@ h4 {
 }
 
 .gamelist {
-    list-style-type: none;
+    display: flex;
+    flex-direction: column-reverse;
     margin: 0 auto;
     padding: 0;
     max-width: 640px;
+    list-style-type: none;
 }
 
 .gamelist > li {
@@ -112,32 +159,46 @@ h4 {
     list-style-position: inside;
 }
 
-.gamelist .kb,
-.gamelist .ms,
-.gamelist .tc {
+.gamelist a {
+    color: var(--blue);
+}
+
+.gamelist a:visited {
+    color: var(--pink);
+}
+
+.kb,
+.gp,
+.ms,
+.tc {
     display: inline-block;
     width: 1em;
     height: 1em;
     overflow: hidden;
 }
 
-.gamelist .kb::before,
-.gamelist .ms::before,
-.gamelist .tc::before {
+.kb::before,
+.gp::before,
+.ms::before,
+.tc::before {
     display: inline-block;
     width: 1em;
     height: 1em;
     content: " ";
 }
 
-.gamelist .kb::before {
+.kb::before {
     background-image: url('img/keyboard.svg');
 }
 
-.gamelist .ms::before {
+.gp::before {
+    background-image: url('img/gamepad.svg');
+}
+
+.ms::before {
     background-image: url('img/mouse.svg');
 }
 
-.gamelist .tc::before {
+.tc::before {
     background-image: url('img/touch.svg');
 }
