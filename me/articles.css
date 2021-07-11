@@ -77,21 +77,3 @@ article h3 {
   font-style: italic;
   z-index: 2;
 }
-
-.fs_button {
-  position: fixed;
-  right: 8px;
-  bottom: 8px;
-  background: white;
-  color: black;
-  border: 2px solid var(--pink);
-  border-radius: 8px;
-  padding: 4px 8px;
-  font-family: inherit;
-  font-size: inherit;
-}
-
-.fs_footnote {
-  font-size: 0.8em;
-  color: var(--purple);
-}
