@@ -78,3 +78,12 @@ article h3 {
   font-style: italic;
   z-index: 2;
 }
+
+article h4 {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+article ul li:nth-child(1n+2) {
+  margin-top: 0.5rem;
+}

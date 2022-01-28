@@ -179,9 +179,6 @@ h4 {
 .tc,
 .rm {
     display: inline-block;
-    width: 1em;
-    height: 1em;
-    overflow: hidden;
 }
 
 .kb::before,
@@ -190,9 +187,11 @@ h4 {
 .tc::before,
 .rm::before {
     display: inline-block;
-    width: 1em;
-    height: 1em;
+    width: 1.5em;
+    height: 1.5em;
     content: " ";
+    margin-bottom: -0.25em;
+    margin-right: 0.25em;
 }
 
 .kb::before {
