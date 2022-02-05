@@ -19,47 +19,30 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta property="og:image" content="http://haitouch.ga/img/salty.png">
   <meta name="twitter:image" content="http://haitouch.ga/img/salty.png">
-  
+
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@0,500;0,800;1,500;1,800&display=swap');
+
     :root {
       --haitouch-purple: #56405c;
       --haitouch-purple2: #3a2b3f;
       --haitouch-blue: #6594e5;
       --haitouch-blue2: #c8f3ff;
     }
+
     html {
-      position: relative;
-      z-index: 0;
       font-family: "Barlow Semi Condensed", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
       font-weight: 500;
     }
+
     body {
       position: relative;
-      z-index: 1;
       margin: 0;
       font-size: 120%;
     }
-    body > * {
-      position: relative;
-      z-index: 3;
-    }
-    #bg-back {
-      position: fixed;
-      z-index: 1;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      background-image: linear-gradient(0deg,
-      #53745e 0%,
-      #50a768 100%);
-      background-attachment: fixed;
-      
-    }
+
     #bg-effect {
+      pointer-events: none;
       position: fixed;
       z-index: 2;
       width: 100%;
@@ -69,10 +52,10 @@
       bottom: 0;
       left: 0;
       background-image:
-      linear-gradient(0deg,
-      transparent 10%,
-      #7f7f7f 100%),
-      url('salty/perlin.gif');
+        linear-gradient(0deg,
+          transparent 10%,
+          #7f7f7f 100%),
+        url('salty/perlin.gif');
       background-size: cover, 512px 512px;
       background-repeat: no-repeat, repeat;
       background-position: center;
@@ -82,10 +65,17 @@
       mix-blend-mode: overlay;
       opacity: 0.5;
     }
+
     @keyframes bg {
-      from {background-position-y: center, top 512px}
-      to {background-position-y: center, top 0}
+      from {
+        background-position-y: center, top 512px
+      }
+
+      to {
+        background-position-y: center, top 0
+      }
     }
+
     header {
       height: 3rem;
       background: var(--haitouch-purple);
@@ -97,56 +87,104 @@
       top: 0;
       right: 0;
     }
+
     header img {
       height: 3rem;
       width: auto;
       margin: 0 auto;
     }
+
     .disclaimer {
       font-size: 75%;
     }
-    #title {
-      margin-top: 5rem;
-      margin-bottom: 5rem;
-    }
+
     article {
-      max-width: 500px;
+      position: relative;
       width: 100%;
-      margin: 3rem auto;
+      margin: 0;
+      padding: 2rem 0;
+      background-image: radial-gradient(circle,
+      #71c586,#60955f);
+      background-attachment: fixed;
     }
+
+    article#title {
+      margin-top: 3rem;
+      /* header height */
+      background-image: radial-gradient(circle,
+      #71c586,#60955f);
+    }
+
+    article#synopsis, article#controls {
+      background-image: radial-gradient(circle,
+      rgb(228, 96, 136), rgb(104, 36, 51));
+    }
+
+    article#trailer {
+      background-image: radial-gradient(circle,
+          rgb(80, 82, 95),rgb(40, 39, 44));
+    }
+
+    article#news {
+      background-image: radial-gradient(circle,
+          rgb(250, 236, 110),rgb(165, 127, 67));
+    }
+
+    article#features, article#notes {
+      background-image: radial-gradient(circle,
+          rgb(41, 122, 75),rgb(22, 77, 51));
+    }
+    
+    article#footer {
+      background-image: radial-gradient(circle,
+          var(--haitouch-purple),var(--haitouch-purple2));
+    }
+
     img#gamelogo {
+      position: relative;
+      z-index: 3;
       width: 100%;
       height: auto;
+      transform: translate(0);
     }
+
     .tagline {
+      position: relative;
+      z-index: 3;
       margin-top: -1rem;
       margin-bottom: 2rem;
       text-align: center;
       font-style: italic;
       color: white;
     }
+
     .synopsis {
+      position: relative;
+      z-index: 3;
       max-width: 500px;
       background: linear-gradient(90deg,
-        rgba(255,255,255, 0.8) 70%,
-        rgba(255,255,255, 0) 100%
-      );
+          rgba(255, 255, 255, 0.8) 70%,
+          rgba(255, 255, 255, 0) 100%);
       border-left: 0.5rem solid black;
       padding: 1rem;
       color: black;
       margin: 1rem auto;
     }
+
     .synopsis p:first-child {
       margin-block-start: 0;
     }
+
     .release {
       font-weight: 800;
       font-size: 1.50rem;
       color: #f876a0;
     }
+
     b {
       font-weight: 800;
     }
+
     h4 {
       margin: 0;
       font-size: 2.00rem;
@@ -155,52 +193,66 @@
       font-style: italic;
       font-weight: 800;
     }
+
     p:last-child {
       margin-block-end: 0;
     }
+
     section {
+      position: relative;
+      z-index: 3;
       max-width: 500px;
       background: linear-gradient(0deg,
-            #ebebeb 0%,
-            #ffffff 100%), #ebebeb;
+          #ebebeb 0%,
+          #ffffff 100%), #ebebeb;
       background-size: 100% 5rem, 100% 100%;
       background-repeat: no-repeat;
-      margin: 1rem auto 0;
+      margin: 0 auto;
       padding: 2rem;
       border-radius: 0.5rem;
     }
+
     ul {
       padding-inline-start: 1rem;
     }
+
     ul li {
       margin-block-start: 0.5rem;
     }
+
     ul li:first-child {
       margin-block-start: 0;
     }
+
     a.big-bottom-link {
-        display: block;
-        text-align: center;
-        text-decoration: none;
-        width: 256px;
-        margin: 8px auto 24px;
-        padding: 0.8em;
-        background-color: var(--haitouch-blue);
-        color: black;
-        border-radius: 8px;
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      width: 256px;
+      margin: 8px auto 24px;
+      padding: 0.8em;
+      background-color: var(--haitouch-blue);
+      color: black;
+      border-radius: 8px;
     }
+
     a.big-bottom-link:hover {
-        background-color: var(--haitouch-blue2);
+      background-color: var(--haitouch-blue2);
     }
+
     a.big-bottom-link::before {
-        display: none;
+      display: none;
     }
+
     .video_wrapper {
       position: relative;
+      z-index: 3;
       margin: 8rem auto;
       width: calc(100vw - 5rem);
       height: calc((100vw - 5rem) * 9 / 16);
+      transform: translate(0);
     }
+
     .video_wrapper iframe {
       position: absolute;
       width: 100%;
@@ -214,82 +266,120 @@
 </head>
 
 <body>
-  <div id="bg-back">
-    <div id="bg-effect"></div>
-  </div>
-<header>
-  <a href="https://haitouch.ga"><img src="https://haitouch.ga/img/haitouch_logo_wide.svg" id="logo" /></a>
-</header>
-<div id="title">
-  <img id="gamelogo" src="salty/logo.png" alt="Salty Trivia with Candy Barre"/>
-  <div class="tagline">A game by hai!touch Studios</div>
-</div>
-  <div class="synopsis">
-    <p>Salty Trivia is a sassy party trivia game with full voice acting. Use the Lifesaver to your advantage, and don’t talk over the host’s snide remarks!</p>
-    <p class="release">Coming in 2022</p>
-    <a href="https://gotm.io/haitouch/salty-trivia">Play the demo</a> • <a href="https://discord.gg/95JWgy9gue">Follow progress on Discord</a> • <a href="https://github.com/JapanYoshi/salty">See source code</a>
-  </div>
-  <div class="video_wrapper">
-    <iframe src="https://www.youtube-nocookie.com/embed/0zrQRdBzUQE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-  </div>
-  <section>
-    <h4>News</h4>
-    <p>
-      <b>We’re looking for voice talents and writers!</b> Audition as a voice actor <a href="https://www.castingcall.club/projects/you-don-t-know-jack-fangame-salty-trivia-with-candy-barre">on Casting Call Club</a>, whether for a big role in the game, or for a small but important role in the reveal trailer. Or, apply to be a writer <a href="https://discord.gg/95JWgy9gue">in our Discord server</a>.
-    </p>
-  </section>
-  <section>
-    <h4>Features</h4>
-    <ul>
-      <li>Choose from 12 fully-voiced episodes, or randomly generate a surprise!</li>
-      <li>A sassy host narrates over 150 unique questions!</li>
-      <li>Use a <b>Lifesaver</b> to turn a 4-choice question into a 2-choice one.</li>
-      <li>Up to 8 players play on a keyboard, a controller, a touchscreen, or even a phone!</li>
-      <li>Original music for every occasion!</li>
-      <li>7 question types!
-        <ul>
-          <li>
-            <b>Standard</b> — 4 choices, only one of which is right. Answer right to get money! Answer wrong to hear a zinger from the host (and lose money).
-          </li><li>
-            <b>Candy Trivia</b> — Worth a bit more! The question is about candy, or a dumb joke on the back of a wrapper.
-          </li><li>
-            <b>Sorta Kinda</b> — Quickly sort 7 items into one of two categories, sometimes even both of them!
-          </li><li>
-            <b>All Outta Salt</b> — The host gives you a silly phrase, whose syllables rhyme* with another more popular phrase. Buzz in quickly for more cash, but if you’re stumped, wait for the three clues.
-            <div class="disclaimer">*Phrases may not perfectly rhyme in your accent.</span>
-          </li><li>
-            <b>Thousand-Question Question</b> — Starts at 1000 times the normal prize! But with every bit of time that passes, the prize whittles down to zero. Only the first one to get it right will win the money.
-          </li><li>
-            <b>Sugar Rush</b> — A bonus speed round where you select only the options that match a description, based on the topic given at the start of th round.
-          </li><li>
-            <b>Like It or Leave It</b> — An action-packed final round where you “Like” items that match a clue, but “Leave” everything else. There are 4 items, the last of which changes with every clue!
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </section>
-  <section>
-    <h4>Control schemes</h4>
-    <p>Up to 8 people can play, mixing-and-matching the following control schemes:</p>
-    <ul>
-      <li>
-        <a href="https://haitouch.herokuapp.com">Phones as controllers!</a>
-      </li><li>
-        2 players share a game controller
-      </li><li>
-        4 players huddle up on a keyboard
-      </li><li>
-        1 player using the mouse or touchscreen
-      </li>
-    </p>
-  </section>
-  <section>
-    <h4>Notes</h4>
-    <p>
-      The gameplay is based mainly on the <i>You Don’t Know Jack</i> series of games, as well as other trivia games. If you like this game, please support Jackbox Games’ official releases such as <a href="https://www.jackboxgames.com/product/the-jackbox-party-pack/">Jackbox Party Pack 1</a> and <a href="https://www.jackboxgames.com/product/the-jackbox-party-pack-5/">Pack 5</a>. (Although if you’re here, you’re probably already a superfan, or a Jackbox Games lawyer preparing to send me a DMCA).
-    </p>
-  </section>
-  <a class="big-bottom-link" href="../mes">Back</a>
+  <div id="bg-effect"></div>
+  <header>
+    <a href="https://haitouch.ga"><img src="https://haitouch.ga/img/haitouch_logo_wide.svg" id="logo" /></a>
+  </header>
+  <article id="title">
+    <img id="gamelogo" src="salty/logo.png" alt="Salty Trivia with Candy Barre" />
+    <div class="tagline">the sassy trivia game by hai!touch Studios</div>
+  </article>
+  <article id="synopsis">
+    <div class="synopsis">
+      <p>Salty Trivia is a sassy party trivia game with full voice acting. Use the Lifesaver to your advantage, and
+        don’t talk over the host’s snide remarks!</p>
+      <p class="release">Coming in 2022</p>
+      <a href="https://gotm.io/haitouch/salty-trivia">Play the demo</a> • <a href="https://discord.gg/95JWgy9gue">Follow
+        progress on Discord</a> • <a href="https://github.com/JapanYoshi/salty">See source code</a>
+    </div>
+  </article>
+  <article id="trailer">
+    <div class="video_wrapper">
+      <iframe src="https://www.youtube-nocookie.com/embed/0zrQRdBzUQE" title="YouTube video player" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen></iframe>
+    </div>
+  </article>
+  <article id="news">
+    <section>
+      <h4>News</h4>
+      <p>
+        <b>We’re looking for voice talents and writers!</b> Audition as a voice actor <a
+          href="https://www.castingcall.club/projects/you-don-t-know-jack-fangame-salty-trivia-with-candy-barre">on
+          Casting Call Club</a>, whether for a big role in the game, or for a small but important role in the reveal
+        trailer. Or, apply to be a writer <a href="https://discord.gg/95JWgy9gue">in our Discord server</a>.
+      </p>
+    </section>
+  </article>
+  <article id="features">
+    <section>
+      <h4>Features</h4>
+      <ul>
+        <li>Choose from 12 fully-voiced episodes, or randomly generate a surprise!</li>
+        <li>A sassy host narrates over 150 unique questions!</li>
+        <li>Use a <b>Lifesaver</b> to turn a 4-choice question into a 2-choice one.</li>
+        <li>Up to 8 players play on a keyboard, a controller, a touchscreen, or even a phone!</li>
+        <li>Original music for every occasion!</li>
+        <li>7 question types!
+          <ul>
+            <li>
+              <b>Standard</b> — 4 choices, only one of which is right. Answer right to get money! Answer wrong to hear a
+              zinger from the host (and lose money).
+            </li>
+            <li>
+              <b>Candy Trivia</b> — Worth a bit more! The question is about candy, or a dumb joke on the back of a
+              wrapper.
+            </li>
+            <li>
+              <b>Sorta Kinda</b> — Quickly sort 7 items into one of two categories, sometimes even both of them!
+            </li>
+            <li>
+              <b>All Outta Salt</b> — The host gives you a silly phrase, whose syllables rhyme* with another more
+              popular phrase. Buzz in quickly for more cash, but if you’re stumped, wait for the three clues.
+              <div class="disclaimer">*Phrases may not perfectly rhyme in your accent.</span>
+            </li>
+            <li>
+              <b>Thousand-Question Question</b> — Starts at 1000 times the normal prize! But with every bit of time that
+              passes, the prize whittles down to zero. Only the first one to get it right will win the money.
+            </li>
+            <li>
+              <b>Sugar Rush</b> — A bonus speed round where you select only the options that match a description, based
+              on the topic given at the start of th round.
+            </li>
+            <li>
+              <b>Like It or Leave It</b> — An action-packed final round where you “Like” items that match a clue, but
+              “Leave” everything else. There are 4 items, the last of which changes with every clue!
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+  </article>
+  <article id="controls">
+    <section>
+      <h4>Control schemes</h4>
+      <p>Up to 8 people can play, mixing-and-matching the following control schemes:</p>
+      <ul>
+        <li>
+          <a href="https://haitouch.herokuapp.com">Phones as controllers!</a>
+        </li>
+        <li>
+          2 players share a game controller
+        </li>
+        <li>
+          4 players huddle up on a keyboard
+        </li>
+        <li>
+          1 player using the mouse or touchscreen
+        </li>
+        </p>
+    </section>
+  </article>
+  <article id="notes">
+    <section>
+      <h4>Notes</h4>
+      <p>
+        The gameplay is based mainly on the <i>You Don’t Know Jack</i> series of games, as well as other trivia games.
+        If you like this game, please support Jackbox Games’ official releases such as <a
+          href="https://www.jackboxgames.com/product/the-jackbox-party-pack/">Jackbox Party Pack 1</a> and <a
+          href="https://www.jackboxgames.com/product/the-jackbox-party-pack-5/">Pack 5</a>. (Although if you’re here,
+        you’re probably already a superfan, or a Jackbox Games lawyer preparing to send me a DMCA).
+      </p>
+    </section>
+  </article>
+  <article id="footer">
+    <a class="big-bottom-link" href="../mes">Back</a>
+  </article>
 </body>
 
 </html>
