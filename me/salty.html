@@ -100,9 +100,10 @@
 
     article {
       position: relative;
+      box-sizing: border-box;
       width: 100%;
       margin: 0;
-      padding: 2rem 0;
+      padding: 3rem 1rem;
       background-image: radial-gradient(circle,
       #71c586,#60955f);
       background-attachment: fixed;
@@ -115,14 +116,14 @@
       #71c586,#60955f);
     }
 
-    article#synopsis, article#controls {
+    article#synopsis, article#controls, article#footer {
       background-image: radial-gradient(circle,
       rgb(228, 96, 136), rgb(104, 36, 51));
     }
 
     article#trailer {
       background-image: radial-gradient(circle,
-          rgb(80, 82, 95),rgb(40, 39, 44));
+          rgb(40, 39, 44),rgb(10, 8, 16));
     }
 
     article#news {
@@ -133,11 +134,6 @@
     article#features, article#notes {
       background-image: radial-gradient(circle,
           rgb(41, 122, 75),rgb(22, 77, 51));
-    }
-    
-    article#footer {
-      background-image: radial-gradient(circle,
-          var(--haitouch-purple),var(--haitouch-purple2));
     }
 
     img#gamelogo {
@@ -225,6 +221,8 @@
     }
 
     a.big-bottom-link {
+      position: relative;
+      z-index: 3;
       display: block;
       text-align: center;
       text-decoration: none;

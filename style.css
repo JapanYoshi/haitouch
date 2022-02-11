@@ -24,35 +24,40 @@
 }
 
 html {
-    --purple: #56405c;
-    --purple2: #3a2b3f;
-    --blue: #6594e5;
-    --blue2: #c8f3ff;
-    --pink: #f63886;
-    --pink2: #ffc2ee;
+    --haitouch-purple:  #56405c;
+    --haitouch-purple2: #3a2b3f;
+    --haitouch-blue:    #6594e5;
+    --haitouch-blue2:   #c8f3ff;
+    --haitouch-pink:    #f63886;
+    --haitouch-pink2:   #ffc2ee;
 
-    background-color: var(--purple2);
+    background-color: var(--haitouch-purple2);
     font-family: "Atkinson Hyperlegible", sans-serif;
 }
 
 body {
     margin: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 header {
+    display: block;
+    flex-grow: 0;
+    flex-shrink: 0;
     z-index: 8964;
-    background-color: var(--purple);
+    background-color: var(--haitouch-purple);
     box-shadow: 0px 1px 3px #000;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
 }
 
 header #logo {
     display: block;
+    flex-grow: 1;
+    flex-shrink: 1;
     width: auto;
-    height: 108px;
+    max-width: 100vw;
+    height: auto;
+    max-height: 64px;
     margin: 0 auto;
 }
 
@@ -61,11 +66,10 @@ header #logo {
     width: auto;
     max-width: 540px;
     margin: 0 auto;
-    margin-top: 128px;
 }
 
 a {
-    color: var(--blue2);
+    color: var(--haitouch-blue2);
     position: relative;
     text-decoration: none;
 }
@@ -77,7 +81,7 @@ a::before {
     bottom: 0;
     width: 100%;
     height: 0.3em;
-    background-color: var(--blue);
+    background-color: var(--haitouch-blue);
     z-index: -1;
     transition: height 0.125s ease-out;
 }
@@ -86,10 +90,10 @@ a:hover::before {
 }
 
 a:visited {
-    color: var(--pink2);
+    color: var(--haitouch-pink2);
 }
 a:visited:before {
-    background-color: var(--pink);
+    background-color: var(--haitouch-pink);
 }
 
 a.big-bottom-link {
@@ -98,12 +102,12 @@ a.big-bottom-link {
     width: 256px;
     margin: 8px auto 24px;
     padding: 0.8em;
-    background-color: var(--blue);
+    background-color: var(--haitouch-blue);
     color: black;
     border-radius: 8px;
 }
 a.big-bottom-link:hover {
-    background-color: var(--blue2);
+    background-color: var(--haitouch-blue2);
 }
 a.big-bottom-link::before {
     display: none;
@@ -166,11 +170,11 @@ h4 {
 }
 
 .gamelist a {
-    color: var(--blue);
+    color: var(--haitouch-blue);
 }
 
 .gamelist a:visited {
-    color: var(--pink);
+    color: var(--haitouch-pink);
 }
 
 .kb,

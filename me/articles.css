@@ -1,6 +1,6 @@
 html {
-  --article-bg: var(--purple);
-  --article-fg: var(--pink2);
+  --article-bg: var(--haitouch-purple);
+  --article-fg: var(--haitouch-pink2);
 }
 
 hr {
@@ -23,7 +23,7 @@ p.synopsis {
   font-style: italic;
   font-weight: 700;
   padding: 0.5em;
-  border-left: 0.5em solid var(--pink);
+  border-left: 0.5em solid var(--haitouch-pink);
   color: var(--article-fg);
 }
 
