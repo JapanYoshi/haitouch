@@ -165,6 +165,10 @@
       }
     }
 
+    function delay(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
     document.addEventListener("DOMContentLoaded", () => {
       // get params from url's query params
       const params = new Proxy(new URLSearchParams(window.location.search), {
@@ -193,6 +197,13 @@
         // t: char = "i" for image, "t" for text
         if (params.t == "i") {
           document.getElementById("canvas_container").style.display = "";
+          var waitTime = 100;
+          while (!document.fonts.check("12px webmikado")) {
+            print("font is not ready");
+            await delay(waitTime);
+            waitTime = min(2000, waitTime * 2);
+          }
+          print("font is ready");
           drawCanvas(
             document.getElementById("canvas"),
             success, width, height, guessList, clueList
