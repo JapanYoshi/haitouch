@@ -72,7 +72,8 @@
     }
   </style>
   <script>
-    const SHARE_TEXT = [
+
+const SHARE_TEXT = [
       "𐑞𐑦𐑕 𐑢𐑻𐑛 𐑑𐑴𐑑𐑩𐑤𐑦 𐑕𐑑𐑳𐑥𐑐𐑑 𐑥𐑰! 𐑔𐑦𐑙𐑒 𐑿 𐑒𐑫𐑛𐑩𐑝 𐑛𐑳𐑯 𐑚𐑧𐑑𐑼?",
       "𐑲 𐑜𐑧𐑕𐑑 𐑞 𐑢𐑻𐑛 «{word}» 𐑦𐑯 {tries} 𐑑𐑮𐑲𐑟! 𐑢𐑪𐑯𐑑 𐑑 𐑜𐑦𐑝 𐑦𐑑 𐑩 𐑑𐑮𐑲 𐑑𐑵?"
     ]
@@ -165,6 +166,17 @@
       }
     }
 
+/* Since the Web Share API won't work with just a DataURI, we need to convert the canvas contents to a DataURI, then turn it into a Blob, then turn it into a File. */
+async function generateSharableImage() {
+  let blob = await fetch(
+  document.getElementById("canvas").toDataURL("image/png")
+    ).then(x => x.blob());
+  let file = new File([blob], 'temp.png', {
+    type: 'image/png'
+  });
+  return file;
+}
+
     document.addEventListener("DOMContentLoaded", () => {
       // get params from url's query params
       const params = new Proxy(new URLSearchParams(window.location.search), {
@@ -199,13 +211,16 @@
               success, width, height, guessList, clueList
             );
             enableShare(
-              shareText, document.getElementById("canvas").toDataURL("image/png")
+              shareText, generateSharableImage()
             );
           }
-          if (document.fonts.check("bold 12px webmikado")) {
-            drawAndShare();
+          if (document && document.fonts) {
+            document.fonts.load('bold 16px webmikado').then(drawAndShare)
           } else {
-            document.fonts.ready = drawAndShare;
+            let warning = document.createElement('p');
+            warning.innerText = "If the image does not use the same font as the rest of the page, please reload and try again.";
+              document.getElementById("canvas_container").appendChild(warning);
+            drawAndShare();
           }
         } else if (params.t == "t") {
           let boardText = "";
