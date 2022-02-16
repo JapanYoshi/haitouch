@@ -16,8 +16,8 @@
       src:
         /*local("Mikado Bold"),*/
         url("https://2gd4.me/tidbit/shavian-fonts/mikadoshavianbold.otf") format("truetype");
-      }
-      
+    }
+
     body {
       background: var(--haitouch-purple2);
       font-family: "webmikado";
@@ -32,7 +32,7 @@
     #shingo_logo {
       margin-top: 1rem;
     }
-    
+
     h1 {
       margin: 0;
     }
@@ -70,10 +70,15 @@
       padding: 1rem;
       color: var(--haitouch-purple2);
     }
+
+    #shareError {
+      color: #ff7080;
+      font-size: 1rem;
+    }
   </style>
   <script>
 
-const SHARE_TEXT = [
+    const SHARE_TEXT = [
       "𐑞𐑦𐑕 𐑢𐑻𐑛 𐑑𐑴𐑑𐑩𐑤𐑦 𐑕𐑑𐑳𐑥𐑐𐑑 𐑥𐑰! 𐑔𐑦𐑙𐑒 𐑿 𐑒𐑫𐑛𐑩𐑝 𐑛𐑳𐑯 𐑚𐑧𐑑𐑼?",
       "𐑲 𐑜𐑧𐑕𐑑 𐑞 𐑢𐑻𐑛 «{word}» 𐑦𐑯 {tries} 𐑑𐑮𐑲𐑟! 𐑢𐑪𐑯𐑑 𐑑 𐑜𐑦𐑝 𐑦𐑑 𐑩 𐑑𐑮𐑲 𐑑𐑵?"
     ]
@@ -116,11 +121,11 @@ const SHARE_TEXT = [
       return out;
     }
 
-    function enableShare(text, file) {
+    function enableShare(text, file, fallbackAPI = false) {
       document.getElementById("shareBtn").style.display = "";
-      if (navigator && navigator.share) {
+      if (navigator && navigator.share && !fallbackAPI) {
         document.getElementById("shareBtn").innerText = "𐑖𐑻";
-        document.getElementById("shareBtn").addEventListener("click", () => {
+        document.getElementById("shareBtn").addEventListener("click", async () => {
           var shareData = {
             url: "https://haitouch.ga/me/shingo",
             text: text,
@@ -128,7 +133,18 @@ const SHARE_TEXT = [
           if (file) {
             shareData.files = [file];
           }
-          navigator.share(shareData);
+          try {
+            await navigator.share(shareData);
+            console.log("Sharing succeeded");
+          } catch (err) {
+            console.error(err);
+            document.getElementById("shareError").innerText = "𐑖𐑺𐑦𐑙 𐑝𐑾 𐑞 Web Share API 𐑛𐑦𐑛 𐑯𐑪𐑑 𐑕𐑩𐑒𐑕𐑰𐑛 𐑓 𐑞𐑦𐑕 𐑮𐑰𐑟𐑩𐑯:\n" + err.message + (
+              file
+                ? "\n𐑐𐑤𐑰𐑟 𐑛𐑬𐑯𐑤𐑴𐑛 𐑞 𐑦𐑥𐑩𐑡 𐑓𐑮𐑪𐑥 𐑞𐑦𐑕 𐑚𐑳𐑑𐑩𐑯."
+                : "\n𐑐𐑤𐑰𐑟 𐑒𐑪𐑐𐑦 𐑞 𐑑𐑧𐑒𐑕𐑑 𐑓𐑮𐑪𐑥 𐑞𐑦𐑕 𐑚𐑳𐑑𐑩𐑯."
+            );
+            enableShare(text, file, true);
+          }
         });
       } else {
         console.log("Web share API is not supported on this browser.");
@@ -166,16 +182,35 @@ const SHARE_TEXT = [
       }
     }
 
-/* Since the Web Share API won't work with just a DataURI, we need to convert the canvas contents to a DataURI, then turn it into a Blob, then turn it into a File. */
-async function generateSharableImage() {
-  let blob = await fetch(
-  document.getElementById("canvas").toDataURL("image/png")
-    ).then(x => x.blob());
-  let file = new File([blob], 'temp.png', {
-    type: 'image/png'
-  });
-  return file;
-}
+    /* Since the Web Share API won't work with just a DataURI, we need to convert the canvas contents to a DataURI, then turn it into a Blob, then turn it into a File. */
+    function generateSharableImage() {
+      let dataURI = document.getElementById("canvas").toDataURL("image/png");
+      // filter out the start of it
+      const HEADER = "data:image/png;base64,";
+      var headerLength = HEADER.length;
+      // create an ArrayBuffer to hold the string
+      let ab = new ArrayBuffer(dataURI.length - headerLength);
+      // create a view into the buffer
+      let ia = new Uint8Array(ab);
+      // copy the string into the buffer
+      for (let i = 0; i < dataURI.length - headerLength; i++) {
+        ia[i] = dataURI.charCodeAt(i + headerLength);
+      }
+      // write the ArrayBuffer to a Blob
+      let blob = new Blob([ab], { type: 'image/png' });
+      // create a File using the Blob
+      let file = new File([blob], 'temp.png', {
+        type: 'image/png',
+        name: 'temp.png',
+        lastModified: new Date()
+      });
+      if (file instanceof File) {
+        console.log("file is an instance of File.");
+      } else {
+        console.error("file is not an instance of File.");
+      }
+      return file;
+    }
 
     document.addEventListener("DOMContentLoaded", () => {
       // get params from url's query params
@@ -210,16 +245,17 @@ async function generateSharableImage() {
               document.getElementById("canvas"),
               success, width, height, guessList, clueList
             );
+            let shareImg = generateSharableImage();
             enableShare(
-              shareText, generateSharableImage()
+              shareText, shareImg
             );
-          }
+          };
           if (document && document.fonts) {
             document.fonts.load('bold 16px webmikado').then(drawAndShare)
           } else {
             let warning = document.createElement('p');
             warning.innerText = "If the image does not use the same font as the rest of the page, please reload and try again.";
-              document.getElementById("canvas_container").appendChild(warning);
+            document.getElementById("canvas_container").appendChild(warning);
             drawAndShare();
           }
         } else if (params.t == "t") {
@@ -407,12 +443,13 @@ async function generateSharableImage() {
 </head>
 
 <body>
+
   <header>
-    <img src="../img/haitouch_logo_wide.svg" id="logo"/>
+    <img src="../img/haitouch_logo_wide.svg" id="logo" />
   </header>
   <div id="main">
     <img id="shingo_logo"
-    src="data:image/png;base64,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" />
+      src="data:image/png;base64,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" />
     <h1>𐑖𐑦𐑙𐑜𐑴! 𐑛𐑱𐑑𐑩 𐑖𐑺𐑦𐑙 𐑨𐑐𐑤𐑩𐑑</h1>
     <div id="canvas_container" class="share_container" style="display: none;">
       <h3>𐑘𐑹 𐑖𐑺𐑩𐑚𐑩𐑤 𐑦𐑥𐑩𐑡</h3>
@@ -426,9 +463,11 @@ async function generateSharableImage() {
     </div>
     <div id="no_data" class="share_container" style="display: none;">
       <h3>𐑿 𐑙𐑨𐑝 𐑯𐑴 𐑛𐑱𐑑𐑩 𐑑 𐑖𐑺!</h3>
-      <p style="text-align: center">𐑢𐑲 𐑯𐑪𐑑 <a href="https://haitouch.ga/me/shingo">𐑐𐑤𐑱 𐑞 𐑜𐑱𐑥</a> 𐑕𐑴 𐑿 𐑒𐑩𐑯 𐑖𐑺 𐑘𐑹 𐑮𐑦𐑟𐑳𐑤𐑑𐑕?</p>
+      <p style="text-align: center">𐑢𐑲 𐑯𐑪𐑑 <a href="https://haitouch.ga/me/shingo">𐑐𐑤𐑱 𐑞 𐑜𐑱𐑥</a> 𐑕𐑴 𐑿
+        𐑒𐑩𐑯 𐑖𐑺 𐑘𐑹 𐑮𐑦𐑟𐑳𐑤𐑑𐑕?</p>
     </div>
   </div>
+  <p id="shareError"></p>
   <a class="big-bottom-link" id="shareBtn" style="display: none;" href="#">Share</a>
   <a class="big-bottom-link" href="../index">Back</a>
 </body>
