@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>𐑖𐑦𐑙𐑜𐑴! - 𐑖𐑺𐑦𐑙</title>
+  <!-- boilerplate -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, max-zoom=1.0, viewport-fit=cover">
+  <link rel="icon" href="/favicon.png">
+
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    @font-face {
+      font-family: "webmikado";
+      font-weight: bold;
+      src:
+        /*local("Mikado Bold"),*/
+        url("https://2gd4.me/tidbit/shavian-fonts/mikadoshavianbold.otf") format("truetype");
+      }
+      
+    body {
+      background: var(--haitouch-purple2);
+      font-family: "webmikado";
+      font-weight: bold;
+    }
+
+    #main {
+      text-align: center;
+      max-width: calc(640px + 4px);
+    }
+
+    #logo {
+      margin-top: 1rem;
+    }
+    
+    h1 {
+      margin: 0;
+    }
+
+    h3 {
+      margin: 1rem 0;
+      text-align: center;
+      font-size: 1.5rem;
+    }
+
+    .share_container {
+      max-width: 640px;
+      width: calc(100vw - 16px);
+      margin: 1rem auto;
+      background: var(--haitouch-purple);
+      border: 2px solid var(--haitouch-purple);
+      overflow: hidden;
+      border-radius: 16px;
+    }
+
+    #canvas {
+      max-width: 640px;
+      width: calc(100vw - 16px);
+      height: auto;
+      border-radius: 8px;
+    }
+
+    #text_sharable {
+      white-space: pre-line;
+      box-sizing: border-box;
+      width: 100%;
+      height: 16em;
+      font-family: inherit;
+      font-size: 1.5rem;
+      padding: 1rem;
+      color: var(--haitouch-purple2);
+    }
+  </style>
+  <script>
+    const SHARE_TEXT = [
+      "𐑞𐑦𐑕 𐑢𐑻𐑛 𐑑𐑴𐑑𐑩𐑤𐑦 𐑕𐑑𐑳𐑥𐑐𐑑 𐑥𐑰! 𐑔𐑦𐑙𐑒 𐑿 𐑒𐑫𐑛𐑩𐑝 𐑛𐑳𐑯 𐑚𐑧𐑑𐑼?",
+      "𐑲 𐑜𐑧𐑕𐑑 𐑞 𐑢𐑻𐑛 «{word}» 𐑦𐑯 {tries} 𐑑𐑮𐑲𐑟! 𐑢𐑪𐑯𐑑 𐑑 𐑜𐑦𐑝 𐑦𐑑 𐑩 𐑑𐑮𐑲 𐑑𐑵?"
+    ]
+    const SHARE_SUFFIX = " https//haitouch.ga/me/shingo #Shavian #Shingo @hai1touch"
+
+    // The game remaps Shavian characters to alphanumeric ASCII in the range: 
+    // 𐑐𐑑𐑒𐑓𐑔𐑕𐑖𐑗𐑘𐑙𐑚𐑛𐑜𐑝𐑞𐑟𐑠𐑡𐑢𐑣𐑤𐑥𐑦𐑧𐑨𐑩𐑪𐑫𐑬𐑭𐑮𐑯𐑰𐑱𐑲𐑳𐑴𐑵𐑶𐑷𐑸𐑹𐑺𐑻𐑼𐑽𐑾𐑿
+    // 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijkl
+    // This function undoes that and returns a UTF-16 encoded string.
+    function decodeRemappedShavian(text) {
+      const OFFSET = 0x0450; // subtract 0x10000 for surrogate pair encoding
+      var out = "";
+      for (let i = 0; i < text.length; i++) {
+        var index = text.codePointAt(i);
+        // the order goes 0123456789ABCD...XYZabcd...
+        if (index < 0x40) { // digit
+          index -= 0x30
+        } else if (index < 0x60) { // uppercase
+          index += (+10 - 0x41) // 10 to start the numbering at 0, 0x41 to start from 'A'
+        } else { // lowercase
+          index += (+36 - 0x61) // 36 to start the numbering at 0, 0x61 to start from 'a'
+        }
+        var codePt = OFFSET + index;
+        out += String.fromCharCode(
+          0xD800 | (0x3FF & (codePt >> 10)),
+          0xDC00 | (0x3FF & codePt)
+        );
+      }
+      return out
+    }
+
+    // The game packs 2-bit flags for guesses into hexadecimal digits.
+    function decodeClues(text) {
+      var out = [];
+      for (let i = 0; i < text.length; i++) {
+        var value = parseInt(text[i], 16);
+        out.push((value >> 2) & 3);
+        out.push(value & 3);
+      }
+      return out;
+    }
+
+    function enableShare(text, file) {
+      document.getElementById("shareBtn").style.display = "";
+      if (navigator && navigator.share) {
+        document.getElementById("shareBtn").innerText = "𐑖𐑻";
+        document.getElementById("shareBtn").addEventListener("click", () => {
+          var shareData = {
+            url: "https://haitouch.ga/me/shingo",
+            text: text,
+          };
+          if (file) {
+            shareData.files = [file];
+          }
+          navigator.share(shareData);
+        });
+      } else {
+        console.log("Web share API is not supported on this browser.");
+        if (file) {
+          document.getElementById("shareBtn").innerText = "𐑛𐑬𐑯𐑤𐑴𐑛";
+          document.getElementById("shareBtn").addEventListener("click", () => {
+            // create a dummy link element for downloading the image
+            var link = document.createElement('a');
+            var now = new Date();
+            var timestamp = String(now.getFullYear()) + '-' +
+              String(now.getMonth() + 1).padStart(2, '0') + '-' +
+              String(now.getDate()).padStart(2, '0') + '_' +
+              String(now.getHours()).padStart(2, '0') + '-' +
+              String(now.getMinutes()).padStart(2, '0');
+            link.download = `shingo_${timestamp}.png`;
+            link.href = document.getElementById('canvas').toDataURL()
+            link.click();
+          });
+        } else {
+          document.getElementById("shareBtn").innerText = "𐑒𐑪𐑐𐑦";
+          document.getElementById("shareBtn").addEventListener("click", () => {
+            let area = document.getElementById("text_sharable");
+            area.focus();
+            area.select();
+            try {
+              let success = document.execCommand('copy');
+              if (!success) {
+                alert('Copying text did not succeed. Please manually press Ctrl+C.');
+              }
+            } catch (err) {
+              alert("An exception occurred while trying to copy.")
+            }
+          });
+        }
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      // get params from url's query params
+      const params = new Proxy(new URLSearchParams(window.location.search), {
+        get: (searchParams, prop) => searchParams.get(prop),
+      });
+      console.log("params.t is equal to", params.t)
+      if (typeof (params.t) == "string") {
+        // decode the query
+        // s: int = 1 if success, 0 if game over
+        let success = !(!(+(params.s)));
+        // w: int = character count
+        let width = +params.w;
+        // h: int = number of guesses
+        let height = +params.h;
+        // g: string = encoded list of guessed characters
+        let guessList = decodeRemappedShavian(params.g);
+        // c: string = encoded list of clues given
+        let clueList = decodeClues(params.c);
+        let shareText = (success ? SHARE_TEXT[1].replace(
+          "{word}", guessList.substr(guessList.length - 2 * width, 2 * width)
+        ).replace(
+          "{tries}", height
+        ) : SHARE_TEXT[0]) + SHARE_SUFFIX;
+        console.log(success, width, height, guessList, clueList, shareText);
+
+        // t: char = "i" for image, "t" for text
+        if (params.t == "i") {
+          document.getElementById("canvas_container").style.display = "";
+          drawCanvas(
+            document.getElementById("canvas"),
+            success, width, height, guessList, clueList
+          );
+          enableShare(
+            shareText, document.getElementById("canvas").toDataURL("image/png")
+          );
+        } else if (params.t == "t") {
+          let boardText = "";
+          // construct the board with emojis
+          for (let y = 0; y < height; y++) {
+            for (let x = 0; x < width; x++) {
+              switch (clueList[y * width + x]) {
+                case 1:
+                  boardText += "🟪";
+                  break;
+                case 2:
+                  boardText += "🟨";
+                  break;
+                case 3:
+                  boardText += "🟩";
+                  break;
+              }
+            }
+            boardText += "\n";
+          }
+          if (!success) {
+            for (let x = 0; x < width; x++) {
+              boardText += "🟥";
+            }
+            boardText += guessList.substr(guessList.length - 2 * width, 2 * width) + "\n";
+          }
+          shareText = boardText + shareText;
+          document.getElementById("text_container").style.display = "";
+          document.getElementById("text_sharable").value = shareText;
+          enableShare(shareText, undefined);
+        } else {
+          console.log("text sharing is still not supported");
+        }
+      } else {
+        document.getElementById("no_data").style.display = "";
+        // Debug
+        console.log("no data to share");
+      }
+    })
+
+    // guessList is a long string that encodes guesses and clues
+    function drawCanvas(c, success, width, height, guessList, clueList) {
+      var ctx = c.getContext("2d");
+      //ctx.fillText(guessList, 10, 50)
+      /* Color constants */
+      const COLOR_BG = "#3a2b3f";
+      const COLOR_TEXT = "#000000";
+      const COLOR_LINK = "#b7a4bc";
+      const COLOR_TILES = [
+        "#6b5d70", // blank (unused)
+        "#69676f", // miss
+        "#fcc946", // graze
+        "#7be695", // hit
+      ]
+      const COLOR_RED = "#f25673";
+      /* Layout */
+      const CANVAS_W = 640;
+      const CANVAS_H = 640;
+      const MAX_W = 580;
+      const MAX_H = 540;
+      var GRID_PX = Math.floor(Math.min(MAX_W / width, MAX_H / (success ? height : height + 1)));
+      var GRID_MARGIN = Math.floor(GRID_PX / 24);
+      // calculate grid origin
+      var grid_x0 = (CANVAS_W - GRID_PX * width) / 2;
+      var grid_y0 = (CANVAS_H - GRID_PX * (height + (success ? 0 : 1))) / 2;
+      // fill the background
+      ctx.fillStyle = COLOR_BG;
+      ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
+      // set the font for later
+      ctx.font = `bold ${GRID_PX * 0.6}px webmikado`;
+      ctx.textAlign = "center";
+      // draw grid squares
+      for (let y = 0; y < (success ? height : height + 1); y++) {
+        for (let x = 0; x < width; x++) {
+          // background
+          ctx.fillStyle = (
+            y == height
+              ? COLOR_RED
+              : COLOR_TILES[clueList[y * width + x]]
+          );
+          drawRoundedRect(
+            ctx,
+            grid_x0 + GRID_MARGIN + GRID_PX * x,
+            grid_y0 + GRID_MARGIN + GRID_PX * y,
+            GRID_PX - 2 * GRID_MARGIN,
+            GRID_PX - 2 * GRID_MARGIN,
+            4 // radius
+          );
+          ctx.fill();
+          // text
+          ctx.fillStyle = COLOR_TEXT;
+          ctx.fillText(
+            guessList.substr(
+              // multiply by 2 because UTF-16 surrogate pair fuckery
+              (y * width + x) * 2, 2
+            ),
+            grid_x0 + GRID_PX * (x + 0.5),
+            grid_y0 + GRID_PX * (y + 0.65) // not 0.5 to lower the baseline
+          );
+        }
+      }
+
+      // draw little text
+      //ctx.textAlign = "center"; // aleready defined
+      // call to action
+      ctx.fillStyle = 'white';
+      ctx.strokeStyle = COLOR_BG;
+      ctx.lineWidth = 4;
+      ctx.font = `bold 32px webmikado`;
+      var callToAction = "𐑓𐑨𐑯𐑕𐑦 𐑘𐑹𐑕𐑧𐑤𐑓 𐑩 𐑢𐑻𐑛𐑕𐑥𐑦𐑔?";
+      ctx.strokeText(callToAction, CANVAS_W / 2, CANVAS_H - 28);
+      ctx.fillText(callToAction, CANVAS_W / 2, CANVAS_H - 28);
+      // url
+      ctx.fillStyle = COLOR_LINK;
+      ctx.font = `bold 16px webmikado`;
+      ctx.fillText("haitouch.ga/me/shingo", CANVAS_W / 2, CANVAS_H - 8);
+      // draw little logo
+      var logoEl = document.getElementById("logo");
+      ctx.drawImage(logoEl, (CANVAS_W - logoEl.width) / 2, 8);
+    }
+
+    /**
+    Helper function to draw a rounded rectangle. Blows my mind Canvas doesn't support this by default.
+    This function assumes that the radius is the same for all corners.
+    */
+    function drawRoundedRect(ctx, x0, y0, w, h, r) {
+      // used to approximate arc with 2 quadratic Bézier curves
+      // distance at 45° angle from unrounded rect corner
+      const ratio_0 = 1 - (Math.sqrt(2) / 2);
+      // distance from unrounded rect corner to overlap between unrounded rect side and cutoff rect corner
+      const ratio_1 = 2 - Math.sqrt(2);
+      // draw a rounded rectangle
+      ctx.beginPath();
+      ctx.moveTo(x0 + r, y0);
+      // top side
+      ctx.lineTo(x0 + w - r, y0);
+      // top right corner
+      ctx.quadraticCurveTo(
+        x0 + w - r * ratio_1, y0,
+        x0 + w - r * ratio_0, y0 + r * ratio_0
+      );
+      ctx.quadraticCurveTo(
+        x0 + w, y0 + r * ratio_1,
+        x0 + w, y0 + r
+      );
+      // right side
+      ctx.lineTo(x0 + w, y0 + h - r);
+      // bottom right corner
+      ctx.quadraticCurveTo(
+        x0 + w, y0 + h - r * ratio_1,
+        x0 + w - r * ratio_0, y0 + h - r * ratio_0
+      );
+      ctx.quadraticCurveTo(
+        x0 + w - r * ratio_1, y0 + h,
+        x0 + w - r, y0 + h
+      );
+      // bottom side
+      ctx.lineTo(x0 + r, y0 + h);
+      // bottom left corner
+      ctx.quadraticCurveTo(
+        x0 + r * ratio_1, y0 + h,
+        x0 + r * ratio_0, y0 + h - r * ratio_0
+      );
+      ctx.quadraticCurveTo(
+        x0, y0 + h - r * ratio_1,
+        x0, y0 + h - r
+      );
+      // left side
+      ctx.lineTo(x0, y0 + r);
+      // top left corner
+      ctx.quadraticCurveTo(
+        x0, y0 + r * ratio_1,
+        x0 + r * ratio_0, y0 + r * ratio_0
+      );
+      ctx.quadraticCurveTo(
+        x0 + r * ratio_1, y0,
+        x0 + r, y0
+      );
+      // close the path
+      ctx.closePath();
+      // fill or stroke after this!
+    }
+  </script>
+</head>
+
+<body>
+  <header>
+    <img src="../img/haitouch_logo_wide.svg" id="logo"/>
+  </header>
+  <div id="main">
+    <img id="logo"
+    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKAAAAAwCAYAAACWqXFuAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAACkwAAApMBv+Bu1wAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAA1HSURBVHic7Z1pcFTXlcd/9/XrVa2lQRICNUIgBAIJWYBZ5OBQAwGDAyFkgMETyDI2ZGI8MzCuOB9c1LiSTNXYwXEGp1JFUsnEcRJPgmGMN8AOAoI3jAWIXYhNQtBIIIEW1OpWd9/5IBB6TWvrRa8l+1fVH957991zpPfvu5x77mvBFwxapJRO4DFgqN6uAOXAH4UQbZ0vCAAppQoUAkP63zcNXuC4EOKmzn4MeKSU+cCH+N3J+G7p7I0CplQQhgPAHCGE7+4VIaUcDbwF5Ovmn5YW4J+FEK/q7chARkq5VborlwVOrQd/i97uIOwTUSb+DBArhBBb755XgV/U+xvyt9/aS6O/WT8PAVUYmGWfbJtizfuVlLJECHFFV4cGNvk0lMaF+ABk8ynw3gBT2iRAI8DZn9w+wSXvVf2868TOxg+ZYs2zAMXA63r7M4AxIP16+6Cl3R9D51MqkOCVbSHL64E30OGLPZZ2pJQpwDNAEWCMpa1e4AJeEULs0dmPfkfV2wE9kFJagANud2tBxdkKfD59W4r0YWk4nZmrpJRLhRA7dHWmn/lcChD4KlCw6YWf43Jd09sXhBB8f90aUVAw8Q0ppd7u9CtRFWD9xVou7j/D5FWzUFQl0uqypZRTo+FXCL7sbnHrIj7jGBumPDsE/XtKAp9xvqE2qrZyWs8zIao1Rp+oCfDCvtNs/act+FrbOLv7GMt+sxajzRRJlf9x5xMTJP3f0giTQuJjmaCK+67V0kxty6mo2jN7az8fAqw+dIGt392Cz9M+gbiw/zRvrf893/jVE32vTPoJnHwqGm51iykQ4Jkl2ihPICD4pCKFD86kxMSmsBpCiu/zTMQCdN+6zRvr/qdDfABWRwLT184Js0aJvF0RqVs9IoCRIRaoRqa2crAiiTZ/74YQbncLUkqsVhtCfCGuvhKZAKVkx7rf0VBd33HKkmTl228+zdCcYZH6pguKkJiNgW4FeP16LaWHD1J1uRK/v30GbTKZGDN6LNOmFWNPiGkEaVARkQDPvn+c83s7jVuEYNFLqwes+HpDxblySva+RyAQ0Jz3er2cKT9FZeVFlnxtGQ6H3svqkXO2qoW3DtRS5WpFUWDsSBuLH04nK8MSNRvhC1BKDmx6V3NqyupZjF/4QKQ+xS0NDbfYu+/9+8TXGXerm/f37GT53//jgO2Sm1p8PPXCaf60y0VwVOjpl8p5fImTTevHYzVHHOkIDgb0noq/nuDaicsdx+ZEC7N/sChih+KZY8ePdnS53VFXd4PKqov94FH0afUGmP9UKX/ceb/4AHx+yZbtl1m84TBtvsgjCWEL8MT2Q5rjwuUzsQ0d3GMf1zXtrDlnTC6rVz3O4kVLMZnMmmtVVZX96VrUeG7LOQ6dbOix3L7Sejb/OfK/MSwB+tt82rEfMGn5jIidiXeam5o0x196aDb2BDvOzCwmTtBmszU06p2D13eaWnz88vXLmnOLH05j2wtFbP9pEfNmaMMGm1+rDNlK9oWwxoA1J6rxNLo7ji1JVjImjYzMkzhHSonH6+k4NqpGEhISOo4dDu3D8Xg8DDQ+PHqLltZ7Q4yi8Ylse6EIRWkfyy4oTqVw5Uecq25P8bpy3cPpS81MHB1+zxdWC9h4VZuwnJ7vRCgDc8DdW4QQmDt1s22+Nlpa7uXatba6NeUtlujNFPuL6tpWzfHC4tQO8QGYjAqzihzae2r6/EWbIKVcIKVMhDBbwKYa7RjBNiShi5KDi7S0dKqv3OuiampcjB6dA4DrmjafMikxOaq2a05Wc+bdo9Sdr6Gxuh5Lso2MwiwKl89gyJj0qNiwmjWpel1OQjoTxkR/6Z1PtZRyQVgCNBi1twnl/oZU+gMIQ+TT9N7Q0OzjyvVWjKpCsl0lxa5iMkbf9siR2RoBllecZvToHJqbm6iquqQpOyorOyo2b99oYucPX6N8Z9l9187vPcXHv3yfh9cvZNaGhRHbGj/Kpjl+88B1nvveWFRDu8paWv3sK63XlMkdncZF8zq8ohdfgvM3gHpUVSUrK8tpsVg2h/WUUoLWsK4erUT678XGPE2t/H7pS5x++0g41feZr/37YQpXfsSEZR8wYsE+/vLX2GS55I4dj9Lpy1ZZeZGbN+v56OMDmtigzZaA05kVFZtvb3g1pPjuEmjzs/+nb/O3F9+J2NbkvCSc6feGDqcuNPPov5Xyf3treG23i0f+pVTTTU/JSyJlxFTcyij8wtrzxy/x+/14PB7q6+sBHgqrBcycko1qNnas/zZcruOtDa8y7Ym/o8l1i33/9SbXy11cLaskJWsowwuj8zC6whsUjxLEZjyakJDAuNw8zpS3RwACgQDv7HyDpqDZ8YNTZ2AwGEJV0WfGzi3g3J6TPZb74Oe7mLBoCmnjh4dty6AInvteDk/8+J69kkP1lByqv6+sEPCT7+cSkOGtZdzJe7SE1QKak6zkL31Qc+7465/y2wXPs/W7W7he7gLav517frQ9LAcjQY1hxsnUKdM14goWX8aw4UzIi94Gw8IVM7EPS8ZktzDn2SWs++RH/ODsi/zDq09iSb7XZUp/gLI/fxyxve8symT9Y6O6LSME/OeTucyfGfl247AHSnOe/TpJw3tOW0qfkBmuiV5zd4xyF0MMZ+RJSckUPRA6T9ZqtTFv3qOabjpSjDYTC59fybd3PE3xuvmkZA3FZLcwdm4+xU9+RVP2Sml0Vl82rR/Pn35SSF62dnIpBMwoSGbX5qk8863R3dbh9XpxuVy4XC7a2rrecxT2WrBtqJ1V2zawbc2vqTlZHbLMxCVTmbtxabgmeo0xqMULFmS0CQS6Xo5TRPQnP+PmF4Y8P7xI21I11zZGzeaKeRmsmJfBhStuqq65UQ2CHKeN4anmHu89ePAga9as6Th++eWXmT17dsiyEWXDOLJTeXzXDzn73nHOl5zkVlUdPk8bQ8akU/CNaWTPGh9J9b3mvhYwhgKsOFfOkaOlIa+53S3sKdnNoq9+vV8SETxN2ridao7+5r4xmVbGZFr7dE9KirZnHDq066464oRUYVAYv/ABXbNgjEH7T2LVAtbV32D/fu3OSWfmSE1opvpKFYePHGLqlOkx8aEzwbPjxGHRjT2GS2pqquZ4yJCuU9MGxa64YMGZYxAD9Hg97H7vHdp898Yz6WnDeHThEj4rPcjhI/eSMz4rPciIEU6GZ4yIiu0bFdd4b+NWTDYzExZPxjrEztndxzix7VNNuZHTc6JiL1IcDgdWqxW3242iKLFtAeOB4KCzyRiDFlBC4aTJVF+pwuW6gkExsOCRxRgMBqZPK6b+Zh2XLl0gJdnBqFHZWMzRWYpzHavid4s3EWhrH3eW7wodE1TNRoq++VBUbEaKoiiMGzeOsrIynE4nZnPX48ZBIcDgSUgsVkHMZjMF+YUU5BcipaStzduRgiWEYN7chbjdLSQmJkXVrqfR3SG+rlCMBhb/92oSM2KzmSoc8vLyKCsrY9y4cd2WG5QCjEUX3BkhxH35f6qqRl18cP8yZ0JaIt5mD21uLwhB1owc5m5cyojJ2VG3HQn5+e2x0Nzc3G7LDQ4BBq05G2PRBeuEwahdURk7p4CFz6+kubYRk92MNSU+E0GmT5+Ow+Fg5syZ3ZYbFAJc/pVhZA234PEGSLarvYpVDRSC3zAhDAKDSSXZGd+bnkaMGMH+/ft7LDcoBPhIcSqPFKf2XHAAogS1gKEyj+KRHTt2sHfvXnJzc1m7di1GY+gY5aAQ4GDGoGoFGNwld0eros/jPXbsGBs3bgSgpKSEtLQ0VqxYEbKsCvgUdPI0BIoO72yJZ1SL9v06Sh9yLI/ZnIzy1JHmC/3m2yRDAnbFFvJabxEyneBH1tioXRKsq6vr8n4VKCuw5kw94j5Dm/R1WbC/mHy7Sm8X4gqrQyuQ4C65O7yKyrahXb9gbH5iMV+2Tw7bNwBRVwdXtdngM2bMoKioiKNHj5KYmMjcuXO7vF8Fnh5jynzn2WGPJ+glwIDrf5GurShIzAH9vwTxhDnR2v6SJykxmFXSxoWf79cFl2lPkQ+HPwB5wSeNRiOvvPIKNTU1OByO7gPRQoj9UspJqjAsVoUhOmtHfWNdAGGXgfh5TXA8IRTBhEWRtVI94BFChM6u6AEpZZdvQBdCkJGR0WMd6p3CF4HN4TgRKVLKbxHj90F/QfwSN5OPeKLwgUm0+qIfS/RZJdW4ey7YT9wJ10cy62sNN/n2Trpa6xcCDMGq1StBjX5qk58AL9b+QfffY4F28WWa0gEiSaM+mJSU9JDNZuvTRnxVVe+maH0UDwL0CwzxFXwRBmh/PfDLUaw1yYDywZOpy5yVXpfuf6/DkEimMV0CP4ugmh8bDIbZOTk5U8K4txr413gQ4AlSpjm5thX8+ndPIvlBMNgBPo3yb9bdlFJOtyu2Z/MtOZMBvdcLzwNbhBAl4VYghLgppZwJfAkYS+/3GFUDfxNCNOu+ai+lfBAowd+SiK/ntzLFFgOY0wDxLrBICKF3QzXo0V2AAFLKbGAF+v9aZwA4DvxFCBFnv3M1OPl/uVEwc75gd/8AAAAASUVORK5CYII=" />
+    <h1>𐑖𐑦𐑙𐑜𐑴! 𐑛𐑱𐑑𐑩 𐑖𐑺𐑦𐑙 𐑨𐑐𐑤𐑩𐑑</h1>
+    <div id="canvas_container" class="share_container" style="display: none;">
+      <h3>𐑘𐑹 𐑖𐑺𐑩𐑚𐑩𐑤 𐑦𐑥𐑩𐑡</h3>
+      <canvas id="canvas" width="640" height="640">
+        If you're seeing this, your browser doesn't support the Canvas element.
+      </canvas>
+    </div>
+    <div id="text_container" class="share_container" style="display: none;">
+      <h3>𐑘𐑹 𐑖𐑺𐑩𐑚𐑩𐑤 𐑑𐑧𐑒𐑕𐑑</h3>
+      <textarea id="text_sharable"></textarea>
+    </div>
+    <div id="no_data" class="share_container" style="display: none;">
+      <h3>𐑿 𐑙𐑨𐑝 𐑯𐑴 𐑛𐑱𐑑𐑩 𐑑 𐑖𐑺!</h3>
+      <p style="text-align: center">𐑢𐑲 𐑯𐑪𐑑 <a href="https://haitouch.ga/me/shingo">𐑐𐑤𐑱 𐑞 𐑜𐑱𐑥</a> 𐑕𐑴 𐑿 𐑒𐑩𐑯 𐑖𐑺 𐑘𐑹 𐑮𐑦𐑟𐑳𐑤𐑑𐑕?</p>
+    </div>
+  </div>
+  <a class="big_bottom_link" id="shareBtn" style="display: none;">Share</a>
+</body>
+
+</html>
