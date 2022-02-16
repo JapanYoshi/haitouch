@@ -165,10 +165,6 @@
       }
     }
 
-    function delay(ms) {
-      return new Promise(resolve => setTimeout(resolve, ms));
-    }
-
     document.addEventListener("DOMContentLoaded", () => {
       // get params from url's query params
       const params = new Proxy(new URLSearchParams(window.location.search), {
@@ -197,20 +193,20 @@
         // t: char = "i" for image, "t" for text
         if (params.t == "i") {
           document.getElementById("canvas_container").style.display = "";
-          var waitTime = 100;
-          while (!document.fonts.check("12px webmikado")) {
-            print("font is not ready");
-            await delay(waitTime);
-            waitTime = min(2000, waitTime * 2);
+          let drawAndShare = () => {
+            drawCanvas(
+              document.getElementById("canvas"),
+              success, width, height, guessList, clueList
+            );
+            enableShare(
+              shareText, document.getElementById("canvas").toDataURL("image/png")
+            );
           }
-          print("font is ready");
-          drawCanvas(
-            document.getElementById("canvas"),
-            success, width, height, guessList, clueList
-          );
-          enableShare(
-            shareText, document.getElementById("canvas").toDataURL("image/png")
-          );
+          if (document.fonts.check("bold 12px webmikado")) {
+            drawAndShare();
+          } else {
+            document.fonts.ready(drawAndShare);
+          }
         } else if (params.t == "t") {
           let boardText = "";
           // construct the board with emojis
