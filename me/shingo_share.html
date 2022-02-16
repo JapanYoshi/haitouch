@@ -205,7 +205,7 @@
           if (document.fonts.check("bold 12px webmikado")) {
             drawAndShare();
           } else {
-            document.fonts.ready(drawAndShare);
+            document.fonts.ready = drawAndShare;
           }
         } else if (params.t == "t") {
           let boardText = "";
