@@ -87,3 +87,10 @@ article h4 {
 article ul li:nth-child(1n+2) {
   margin-top: 0.5rem;
 }
+
+article > img.insert {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
