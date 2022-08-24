@@ -61,6 +61,16 @@ header #logo {
     margin: 0 auto;
 }
 
+/* undo any link styling when we're in the header*/
+header a,
+header a:visited {
+  text-decoration: none;
+}
+header a::before,
+header a:visited::before {
+  display: none;
+}
+
 #main {
     color: #fff;
     width: auto;
@@ -68,13 +78,13 @@ header #logo {
     margin: 0 auto;
 }
 
-a {
+#main a {
     color: var(--haitouch-blue2);
     position: relative;
     text-decoration: none;
 }
 
-a::before {
+#main a::before {
     content: "";
     position: absolute;
     left: 0;
@@ -85,14 +95,16 @@ a::before {
     z-index: -1;
     transition: height 0.125s ease-out;
 }
-a:hover::before {
+
+#main a:hover::before {
     height: 1em;
 }
 
-a:visited {
+#main a:visited {
     color: var(--haitouch-pink2);
 }
-a:visited:before {
+
+#main a:visited:before {
     background-color: var(--haitouch-pink);
 }
 
