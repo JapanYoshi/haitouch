@@ -25,7 +25,11 @@
     if (searchParams.has('ther')) {
       let rc = searchParams.get('ther');
       if (rc.length == 4) {
-        window.location.href('https://haitouch.herokuapp.com?r=' + rc);
+        let link = document.createElement('a');
+        link.href = 'https://haitouch.herokuapp.com?r=' + rc;
+        console.log(link);
+        document.body.appendChild(link);
+        link.click();
       } else {
         console.log("Illegal room code passed.");
       }
