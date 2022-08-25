@@ -82,6 +82,7 @@ header a:visited::before {
     color: var(--haitouch-blue2);
     position: relative;
     text-decoration: none;
+    z-index: 1;
 }
 
 #main a::before {
@@ -106,6 +107,18 @@ header a:visited::before {
 
 #main a:visited:before {
     background-color: var(--haitouch-pink);
+}
+
+#main .gamelist a {
+    color: var(--haitouch-blue);
+}
+
+#main .gamelist a:visited {
+    color: var(--haitouch-pink);
+}
+
+#main .gamelist a::before {
+    display: none;
 }
 
 a.big-bottom-link {
