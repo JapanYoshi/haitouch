@@ -2,14 +2,14 @@
   <meta charset="UTF-8">
   <title>Redirecting...</title>
 <body style="background:#3a2b3f;font-family:sans-serif">
-  <a id="red" style="color:white" href="https://haitouch.herokuapp.com">Redirecting you to hai!touch Controller...</a>
+  <a id="red" style="color:white" href="https://haitouch.onrender.com">Redirecting you to hai!touch Controller...</a>
   <script>
     // allow players to open the controller app via the shortcut 'haitouch.ga/te#ABCD'
   const tester = /^#?([A-Z]{4})$/i;
   let link = document.getElementById("red");
   if (tester.test(window.location.hash)) {
     const rc = location.hash.match(tester)[1].toUpperCase();
-    link.href = 'https://haitouch.herokuapp.com?r=' + rc;
+    link.href = 'https://haitouch.onrender.com?r=' + rc;
   }
   link.click();
   // now you can redirect knowing the room code
