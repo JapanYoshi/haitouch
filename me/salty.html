@@ -33,6 +33,7 @@
     html {
       font-family: "Barlow Semi Condensed", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
       font-weight: 500;
+      scroll-behavior: smooth;
     }
 
     body {
@@ -242,23 +243,43 @@
       display: none;
     }
 
+    .video_carousel {
+      width: 100%;
+      text-align: center;
+      display: flex;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      height: calc((100% - 3rem) * 9 / 16 + 3rem);
+    }
+    
     .video_wrapper {
+      scroll-snap-align: start;
+      flex-shrink: 0;
+      width: calc((100vw - 3rem));
+      margin-right: 8rem;
       position: relative;
-      z-index: 3;
-      margin: 8rem auto;
-      width: calc(100vw - 5rem);
-      height: calc((100vw - 5rem) * 9 / 16);
-      transform: translate(0);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .video_wrapper_inner {
+      width: inherit;
+      margin-top: 3rem;
+      padding-bottom: calc((100vw - 3rem) * 9 / 16);
     }
 
     .video_wrapper iframe {
       position: absolute;
       width: 100%;
       height: 100%;
-      top: 0;
+      top: 1.5rem; /*why?!*/
+      left: 0;
       right: 0;
       bottom: 0;
-      left: 0;
     }
   </style>
 </head>
@@ -282,14 +303,31 @@
     </div>
   </article>
   <article id="trailer">
-    <div class="video_wrapper">
-      <iframe src="https://player.vimeo.com/video/742895480?h=c5332a67c4&badge=0&autopause=0&player_id=0&app_id=58479" width="1920" height="1080" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="First Look Trailer - Salty Trivia with Candy Barre"></iframe>
-      <!--
-        Replace YouTube embed with Vimeo embed.
-        <iframe src="https://www.youtube-nocookie.com/embed/0zrQRdBzUQE" title="YouTube video player" frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen></iframe>
-      -->
+    <div class="video_selector">
+      <a href="#pitch">1&thinsp;min “Pitch” Trailer</a> • <a href="#firstlook">15&thinsp;sec “First Look” Trailer</a>
+    </div>
+    <div class="video_carousel">
+      <div class="video_wrapper" id="pitch">
+        <div class="video_wrapper_inner">
+          <!-- Video too big for Vimeo free account.
+          <iframe src="https://player.vimeo.com/video/742895480?h=c5332a67c4&badge=0&autopause=0&player_id=0&app_id=58479" width="1920" height="1080" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="First Look Trailer - Salty Trivia with Candy Barre"></iframe>
+          -->
+          <iframe src="https://www.youtube-nocookie.com/embed/LMd3IIJZEoM" title="YouTube video player" frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+        </div>
+      </div>
+      <div class="video_wrapper" id="firstlook">
+        <div class="video_wrapper_inner">
+          <iframe src="https://player.vimeo.com/video/742895480?h=c5332a67c4&badge=0&autopause=0&player_id=0&app_id=58479" width="1920" height="1080" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="First Look Trailer - Salty Trivia with Candy Barre"></iframe>
+          <!--
+            Replace YouTube embed with Vimeo embed.
+            <iframe src="https://www.youtube-nocookie.com/embed/0zrQRdBzUQE" title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+          -->
+        </div>
+      </div>
     </div>
   </article>
   <article id="news">
