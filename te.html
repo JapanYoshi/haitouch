@@ -28,10 +28,7 @@
   <meta property="og:image:height" content="628">
 </head>
 <body style="background:#3a2b3f;font-family:sans-serif;color:white">
-  <h3>Current build (Public beta)</h3>
-  <a id="red" style="color:white" href="https://haitouch.herokuapp.com">hai!touch Controller</a> is expected to stop working on November 28, due to Heroku ending its free tier. Please click on the link to be transported there.
-  <h3>Episode Pack 1 (In development)</h3>
-  <a style="color:white" href="https://haitouch-9320f.web.app/">hai!touch Gate</a> will replace hai!touch Controller for the build that will bring you Episode Pack 1. It will not work with the Public Beta; please click on the link to be transported there.
+  <a style="color:white" href="https://haitouch-9320f.web.app/">Please click here if you are not automatically redirected.</a>
   <script>
   document.title = "Redirecting...";
     // allow players to open the controller app via the shortcut 'haitouch.ga/te#ABCD'
@@ -41,7 +38,7 @@
     const rc = location.hash.match(tester)[1].toUpperCase();
     link.href = link.href + '?r=' + rc;
   }
-  //link.click();
+  link.click();
   // now you can redirect knowing the room code
   </script>
 </body>
