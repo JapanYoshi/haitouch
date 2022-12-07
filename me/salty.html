@@ -164,7 +164,8 @@
       z-index: 3;
       max-width: 500px;
       background: linear-gradient(90deg,
-          rgba(255, 255, 255, 0.8) 70%,
+          rgba(255, 255, 255, 0.8) 75%,
+          rgba(255, 255, 255, 0.5) 90%,
           rgba(255, 255, 255, 0) 100%);
       border-left: 0.5rem solid black;
       padding: 1rem;
@@ -285,6 +286,14 @@
       right: 0;
       bottom: 0;
     }
+    
+    .platform {
+      background: white;
+      margin-bottom: 0.5rem;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
   </style>
 </head>
 
@@ -299,11 +308,22 @@
   </article>
   <article id="synopsis">
     <div class="synopsis">
-      <p>Salty Trivia is a sassy party trivia game with full voice acting. Use the Lifesaver to your advantage, and
-        don’t talk over the host’s snide remarks!</p>
+      <p>
+        Salty Trivia is a sassy party trivia game with full voice acting. Use the Lifesaver to your advantage, and don’t talk over the host’s snide remarks!
+      </p>
       <p class="release">Episode Pack 1 Coming in 2022</p>
-      <a href="https://gotm.io/haitouch/salty-trivia">Play the demo</a> • <a href="https://discord.gg/95JWgy9gue">Follow
-        progress on Discord</a> • <a href="https://github.com/JapanYoshi/salty">See source code</a>
+      <p><a href="https://gotm.io/haitouch/salty-trivia">
+        Play now on Gotm.io
+      </a></p>
+      <p><a href="#platforms">
+        Find out all the platforms you can play on
+      </a></p>
+      <p><a href="https://discord.gg/95JWgy9gue">
+        Follow progress on Discord
+      </a></p>
+      <p><a href="https://github.com/JapanYoshi/salty">
+        See source code
+      </a></p>
     </div>
   </article>
   <article id="trailer">
@@ -338,7 +358,7 @@
     <section>
       <h4>News</h4>
       <p>
-        <b>Episodes 1, 2, and 3 are currently in production. Stay tuned!</b> You can already play the pilot episode from the link above.
+        <b>Audio editing for Episodes 1, 2, and 3 are done. Stay tuned for a new batch of random questions!</b> You can already play the pilot episode from the link above.
       </p>
       <p>
         <b>We’re looking for voice talents and writers!</b> Come <a href="https://discord.gg/95JWgy9gue">into our Discord server</a>  to look for openings for additional voices, or to apply to be a writer.
@@ -350,7 +370,7 @@
       <h4>Features</h4>
       <ul>
         <li>Choose from 12 fully-voiced episodes, or randomly generate a surprise!</li>
-        <li>A sassy host narrates over 150 unique questions!</li>
+        <li>A sassy host narrates over 150 (planned) unique questions!</li>
         <li>Use a <b>Lifesaver</b> to turn a 4-choice question into a 2-choice one.</li>
         <li>Up to 8 players play on a keyboard, a controller, a touchscreen, or even a phone!</li>
         <li>Original music for every occasion!</li>
@@ -395,7 +415,7 @@
   <article id="controls">
     <section>
       <h4>Control schemes</h4>
-      <p>Up to 8 people can play, mixing-and-matching the following control schemes:</p>
+      <p>Up to <b>8 contestants</b> can play, mixing-and-matching the following control schemes:</p>
       <ul>
         <li>
           <a href="https://haitouch.ga/te">Phones as controllers!</a>
@@ -409,7 +429,45 @@
         <li>
           1 player using the mouse or touchscreen
         </li>
-        </p>
+      </ul>
+      <p>
+        Up to <b>100 audience members</b> can play along and have their score tracked.</p>
+      </p>
+    </section>
+  </article>
+  <article id="platforms">
+    <section>
+      <h4>Platforms</h4>
+      <p>
+        Salty Trivia is available on the following platforms:
+      </p>
+      <div class="platform-list">
+        <div class="platform">
+          <img class="platform-image" src="../img/platform-browser.svg">
+          <div class="platform-desc">
+            <b>Browser</b> - Play live on <a href="https://gotm.io/haitouch/salty-trivia">Gotm.io</a> or <a href="https://haitouch.itch.io/salty-trivia">Itch.io</a>. This option has the longest load time (You have to download the game every time), but is compatible with the most devices.
+          </div>
+        </div>
+        <div class="platform">
+          <img class="platform-image" src="../img/platform-windows.svg">
+          <div class="platform-desc">
+            <b>Windows executable</b> - Play as a standalone application on your Windows computer. No need to install, just download, extract, and run.
+          </div>
+        </div>
+        <div class="platform">
+          <img class="platform-image" src="../img/platform-linux.svg">
+          <div class="platform-desc">
+            <b>Linux executable</b> - Play as a standalone application on your Linux computer. No need to install, just download, extract, and run.
+          </div>
+        </div>
+        <div class="platform">
+          <img class="platform-image" src="../img/platform-android.svg">
+          <div class="platform-desc">
+            <b>Android app</b> - Install the .APK file as an app on your Android phone. (You will need to enable “Install from unknown sources” for this.)
+          </b>
+        </div>
+      </div>
+      <p>You can download all the non-browser versions from <a href="https://haitouch.itch.io/salty-trivia">the Itch.io listing</a>.
     </section>
   </article>
   <article id="notes">
@@ -421,6 +479,20 @@
           href="https://www.jackboxgames.com/product/the-jackbox-party-pack/">Jackbox Party Pack 1</a> and <a
           href="https://www.jackboxgames.com/product/the-jackbox-party-pack-5/">Pack 5</a>. (Although if you’re here,
         you’re probably already a superfan, or a Jackbox Games lawyer preparing to send me a DMCA).
+      </p>
+      <p>
+        <i>Salty Trivia with Candy Barre</i> is released as free and open source software.
+      </p>
+      <ul>
+        <li>
+          <b>“Free”:</b> Not only is the game free (<i>gratis</i>) to play, you are free (<i>libre</i>) to 0) run the program, 1) study and modify the game’s files as you want, 2) reupload and distribute copies of the program, and 3) distribute copies of your modified programs.
+        </li>
+        <li>
+          <b>“Open source”:</b> To achieve the first and third freedoms, the game’s code is open-source, which means all the code that makes up the game is available to see, copy, and modify online (on GitHub in this case). In addition, it uses the Godot game engine, which is similarly free and open source.
+        </li>
+      </ul>
+      <p>
+        However, there are some restrictions. You may not use the code to impersonate us, or otherwise scam people. The recordings of our voices are available for ease of modification, but if you release a modification, you must replace all the provided voice files.
       </p>
     </section>
   </article>
