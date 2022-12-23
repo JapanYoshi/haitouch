@@ -1,1 +1,227 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="128" height="128" xmlns:v="https://vecta.io/nano"><style><![CDATA[.B{stroke-linejoin:round}.C{stroke-width:2}.D{stroke:#000}.E{stroke-linecap:round}.F{stroke:#5c3124}]]></style><defs><linearGradient id="A" xlink:href="#H"><stop offset="0" stop-color="#464646"/><stop offset="1" stop-color="#393939"/></linearGradient><linearGradient xlink:href="#A" id="B" x1="92.109" y1="80.183" x2="84.08" y2="50.22"/><linearGradient xlink:href="#A" id="C" x1="32.529" y1="80.972" x2="32.529" y2="55.395"/><linearGradient id="D" x1="61.371" y1="53.948" x2="61.371" y2="118.935" xlink:href="#H"><stop offset="0" stop-color="#393939"/><stop offset="1" stop-color="#171717"/></linearGradient><linearGradient id="E" x1="64.335" y1="41.268" x2="64.335" y2="119.569" xlink:href="#H"><stop offset="0" stop-color="#ebcd61"/><stop offset="1" stop-color="#c39640"/></linearGradient><linearGradient id="F" x1="64.335" y1="41.268" x2="64.335" y2="119.569" xlink:href="#H"><stop offset="0" stop-color="#ebcd61"/><stop offset="1" stop-color="#c39640"/></linearGradient><linearGradient id="G" x1="64.335" y1="41.268" x2="64.335" y2="119.569" xlink:href="#H"><stop offset="0" stop-color="#ebcd61"/><stop offset="1" stop-color="#c39640"/></linearGradient><linearGradient id="H" gradientUnits="userSpaceOnUse"/></defs><g class="B C"><path d="M66.335 7.218c15.743.45 26.872 9.415 28.441 27.303s10.984 33.58 10.984 49.899-11.925 33.58-41.739 33.58-37.583-19.172-37.583-32.981 10.19-39.775 11.437-50.446c1.921-16.44 12.717-27.804 28.46-27.354z" fill="url(#D)" paint-order="stroke markers fill" class="D"/><g stroke="#fff"><ellipse cx="72.176" cy="36.06" rx="2.829" ry="5.215" paint-order="stroke fill markers"/><ellipse cx="49.43" cy="36.06" rx="2.829" ry="5.215" paint-order="stroke fill markers"/></g></g><g fill="#fff"><ellipse cx="71.51" cy="33.726" rx="1.02" ry="1.879" paint-order="stroke markers fill"/><ellipse cx="48.765" cy="33.726" rx="1.02" ry="1.879" paint-order="stroke markers fill"/><path d="M47.545 45.662c-8.291 8.213-16.633 35.776-12.553 49.899s37.816 18.83 46.447 6.277 1.669-45.881-9.429-58.01" paint-order="stroke fill markers" class="B C D E"/></g><path d="M43.162 44.937c2.552-4.105 10.874-6.324 14.868-6.324s13.317 1.11 15.98 5.215c-2.33 3.772-9.656 6.879-15.869 6.879s-11.761-2.108-14.979-5.77z" fill="url(#E)" paint-order="stroke fill markers" class="B C F"/><g class="D E B"><path d="M77.336 50.706c2.996 14.313 1.553 40.499 16.865 50.041 11.65.777 16.199-8.987 14.646-21.747S98.75 52.038 97.141 45.492" fill="url(#B)" paint-order="normal"/><path d="M83.874 86.08c3.449.615 7.764-3.072 12.707-4.641 3.452 2.275 8.552 10.749 9.179 13.965" fill="#4f4f4f" paint-order="normal"/></g><path d="M83.729 121.255c-10.592 0-13.585-7.258-13.338-16.162s1.569-22.753 4.394-22.753c1.4 0 5.025 2.77 9.089 3.74 4.137.987 8.711.178 9.898.811 1.35.72 3.574 5.108 7.41 7.556 2.853 1.821 7.579 1.587 8.282 3.193 1.648 3.766-7.61 16.319-10.67 18.987s-7.767 4.629-15.064 4.629z" fill="url(#F)" paint-order="stroke fill markers" class="B C F"/><path d="M42.205 52.443c-3.551 15.201-1.217 41.893 13.097 45.998-3.44 9.875-32.001 14.844-32.001-13.449 0-11.317 7.98-29.786 10.421-35.223" fill="url(#C)" paint-order="normal" class="B D E"/><path d="M35.04 121.255c9.118 0 12.457-5.488 12.594-14.384S45.171 82.34 42.74 82.34c-1.205 0-4.326 2.77-7.824 3.74-3.561.987-7.499.178-8.521.811-1.162.72-3.076 5.108-6.379 7.556-2.456 1.821-6.524 1.587-7.129 3.193-1.418 3.766 6.551 16.319 9.185 18.987s6.686 4.629 12.968 4.629z" fill="url(#G)" paint-order="stroke fill markers" class="B C F"/><path d="M55.155 40.988c.73.057 1.326-.329 1.687-1.491-.945.191-1.482.708-1.687 1.491zm5.257 0c-.73.057-1.326-.329-1.687-1.491.945.191 1.482.708 1.687 1.491z" paint-order="stroke fill markers" fill="#5c3124"/></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="128"
+   height="128"
+   version="1.1"
+   id="svg2759"
+   sodipodi:docname="platform-linux.svg"
+   inkscape:export-filename="D:\GitHub\haitouch\img\platform-linux.png"
+   inkscape:export-xdpi="192"
+   inkscape:export-ydpi="192"
+   inkscape:version="1.1.2 (b8e25be833, 2022-02-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview2761"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     showgrid="false"
+     inkscape:zoom="5.6171875"
+     inkscape:cx="64"
+     inkscape:cy="63.910987"
+     inkscape:window-width="1920"
+     inkscape:window-height="1027"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2759" />
+  <style
+     id="style2693"><![CDATA[.B{stroke-linejoin:round}.C{stroke-width:2}.D{stroke:#000}.E{stroke-linecap:round}.F{stroke:#5c3124}]]></style>
+  <defs
+     id="defs2723">
+    <linearGradient
+       id="A"
+       xlink:href="#H">
+      <stop
+         offset="0"
+         stop-color="#464646"
+         id="stop2695" />
+      <stop
+         offset="1"
+         stop-color="#393939"
+         id="stop2697" />
+    </linearGradient>
+    <linearGradient
+       xlink:href="#A"
+       id="B"
+       x1="92.109"
+       y1="80.183"
+       x2="84.08"
+       y2="50.22" />
+    <linearGradient
+       xlink:href="#A"
+       id="C"
+       x1="32.529"
+       y1="80.972"
+       x2="32.529"
+       y2="55.395" />
+    <linearGradient
+       id="D"
+       x1="61.371"
+       y1="53.948"
+       x2="61.371"
+       y2="118.935"
+       xlink:href="#H">
+      <stop
+         offset="0"
+         stop-color="#393939"
+         id="stop2702" />
+      <stop
+         offset="1"
+         stop-color="#171717"
+         id="stop2704" />
+    </linearGradient>
+    <linearGradient
+       id="E"
+       x1="64.335"
+       y1="41.268"
+       x2="64.335"
+       y2="119.569"
+       xlink:href="#H">
+      <stop
+         offset="0"
+         stop-color="#ebcd61"
+         id="stop2707" />
+      <stop
+         offset="1"
+         stop-color="#c39640"
+         id="stop2709" />
+    </linearGradient>
+    <linearGradient
+       id="F"
+       x1="64.335"
+       y1="41.268"
+       x2="64.335"
+       y2="119.569"
+       xlink:href="#H">
+      <stop
+         offset="0"
+         stop-color="#ebcd61"
+         id="stop2712" />
+      <stop
+         offset="1"
+         stop-color="#c39640"
+         id="stop2714" />
+    </linearGradient>
+    <linearGradient
+       id="G"
+       x1="64.335"
+       y1="41.268"
+       x2="64.335"
+       y2="119.569"
+       xlink:href="#H">
+      <stop
+         offset="0"
+         stop-color="#ebcd61"
+         id="stop2717" />
+      <stop
+         offset="1"
+         stop-color="#c39640"
+         id="stop2719" />
+    </linearGradient>
+    <linearGradient
+       id="H"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <g
+     class="B C"
+     id="g2733">
+    <path
+       d="M66.335 7.218c15.743.45 26.872 9.415 28.441 27.303s10.984 33.58 10.984 49.899-11.925 33.58-41.739 33.58-37.583-19.172-37.583-32.981 10.19-39.775 11.437-50.446c1.921-16.44 12.717-27.804 28.46-27.354z"
+       fill="url(#D)"
+       paint-order="stroke markers fill"
+       class="D"
+       id="path2725" />
+    <g
+       stroke="#fff"
+       id="g2731">
+      <ellipse
+         cx="72.176"
+         cy="36.06"
+         rx="2.829"
+         ry="5.215"
+         paint-order="stroke fill markers"
+         id="ellipse2727" />
+      <ellipse
+         cx="49.43"
+         cy="36.06"
+         rx="2.829"
+         ry="5.215"
+         paint-order="stroke fill markers"
+         id="ellipse2729" />
+    </g>
+  </g>
+  <g
+     fill="#fff"
+     id="g2741">
+    <ellipse
+       cx="71.51"
+       cy="33.726"
+       rx="1.02"
+       ry="1.879"
+       paint-order="stroke markers fill"
+       id="ellipse2735" />
+    <ellipse
+       cx="48.765"
+       cy="33.726"
+       rx="1.02"
+       ry="1.879"
+       paint-order="stroke markers fill"
+       id="ellipse2737" />
+    <path
+       d="M47.545 45.662c-8.291 8.213-16.633 35.776-12.553 49.899s37.816 18.83 46.447 6.277 1.669-45.881-9.429-58.01"
+       paint-order="stroke fill markers"
+       class="B C D E"
+       id="path2739" />
+  </g>
+  <path
+     d="M43.162 44.937c2.552-4.105 10.874-6.324 14.868-6.324s13.317 1.11 15.98 5.215c-2.33 3.772-9.656 6.879-15.869 6.879s-11.761-2.108-14.979-5.77z"
+     fill="url(#E)"
+     paint-order="stroke fill markers"
+     class="B C F"
+     id="path2743" />
+  <g
+     class="D E B"
+     id="g2749">
+    <path
+       d="M77.336 50.706c2.996 14.313 1.553 40.499 16.865 50.041 11.65.777 16.199-8.987 14.646-21.747S98.75 52.038 97.141 45.492"
+       fill="url(#B)"
+       paint-order="normal"
+       id="path2745" />
+    <path
+       d="M83.874 86.08c3.449.615 7.764-3.072 12.707-4.641 3.452 2.275 8.552 10.749 9.179 13.965"
+       fill="#4f4f4f"
+       paint-order="normal"
+       id="path2747" />
+  </g>
+  <path
+     d="M83.729 121.255c-10.592 0-13.585-7.258-13.338-16.162s1.569-22.753 4.394-22.753c1.4 0 5.025 2.77 9.089 3.74 4.137.987 8.711.178 9.898.811 1.35.72 3.574 5.108 7.41 7.556 2.853 1.821 7.579 1.587 8.282 3.193 1.648 3.766-7.61 16.319-10.67 18.987s-7.767 4.629-15.064 4.629z"
+     fill="url(#F)"
+     paint-order="stroke fill markers"
+     class="B C F"
+     id="path2751" />
+  <path
+     d="M42.205 52.443c-3.551 15.201-1.217 41.893 13.097 45.998-3.44 9.875-32.001 14.844-32.001-13.449 0-11.317 7.98-29.786 10.421-35.223"
+     fill="url(#C)"
+     paint-order="normal"
+     class="B D E"
+     id="path2753" />
+  <path
+     d="M35.04 121.255c9.118 0 12.457-5.488 12.594-14.384S45.171 82.34 42.74 82.34c-1.205 0-4.326 2.77-7.824 3.74-3.561.987-7.499.178-8.521.811-1.162.72-3.076 5.108-6.379 7.556-2.456 1.821-6.524 1.587-7.129 3.193-1.418 3.766 6.551 16.319 9.185 18.987s6.686 4.629 12.968 4.629z"
+     fill="url(#G)"
+     paint-order="stroke fill markers"
+     class="B C F"
+     id="path2755" />
+  <path
+     d="M55.155 40.988c.73.057 1.326-.329 1.687-1.491-.945.191-1.482.708-1.687 1.491zm5.257 0c-.73.057-1.326-.329-1.687-1.491.945.191 1.482.708 1.687 1.491z"
+     paint-order="stroke fill markers"
+     fill="#5c3124"
+     id="path2757" />
+</svg>

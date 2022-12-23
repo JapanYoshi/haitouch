@@ -114,16 +114,21 @@
       background-attachment: fixed;
     }
 
+    article:nth-child(2n) {
+      background-image: radial-gradient(circle,
+      rgb(228, 96, 136), rgb(104, 36, 51));
+    }
+
+    article:nth-child(2n+1) {
+      background-image: radial-gradient(circle,
+          rgb(41, 122, 75),rgb(22, 77, 51));
+    }
+
     article#title {
       margin-top: 3rem;
       /* header height */
       background-image: radial-gradient(circle,
       #71c586,#60955f);
-    }
-
-    article#synopsis, article#controls, article#footer {
-      background-image: radial-gradient(circle,
-      rgb(228, 96, 136), rgb(104, 36, 51));
     }
 
     article#trailer {
@@ -134,11 +139,6 @@
     article#news {
       background-image: radial-gradient(circle,
           rgb(250, 236, 110),rgb(165, 127, 67));
-    }
-
-    article#features, article#notes {
-      background-image: radial-gradient(circle,
-          rgb(41, 122, 75),rgb(22, 77, 51));
     }
 
     img#gamelogo {
@@ -269,19 +269,20 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      margin-bottom: 1rem;
     }
 
     .video_wrapper_inner {
-      width: inherit;
-      margin-top: 3rem;
+      width: calc(100vw - 3rem);
+      margin-top: 4rem;
       padding-bottom: calc((100vw - 3rem) * 9 / 16);
     }
 
     .video_wrapper iframe {
       position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 1.5rem; /*why?!*/
+      width: calc(100vw - 3rem);
+      height: calc((100vw - 3rem) * 9 / 16);
+      top: 4rem; /*why?!*/
       left: 0;
       right: 0;
       bottom: 0;
@@ -311,9 +312,9 @@
       <p>
         Salty Trivia is a sassy party trivia game with full voice acting. Use the Lifesaver to your advantage, and don’t talk over the host’s snide remarks!
       </p>
-      <p class="release">Episode Pack 1 Coming in 2022</p>
-      <p><a href="https://gotm.io/haitouch/salty-trivia">
-        Play now on Gotm.io
+      <p class="release">Episodes 1, 2, and 3 available now!</p>
+      <p><a href="https://haitouch.itch.io/salty-trivia">
+        Play now on itch.io
       </a></p>
       <p><a href="#platforms">
         Find out all the platforms you can play on
@@ -328,14 +329,20 @@
   </article>
   <article id="trailer">
     <div class="video_selector">
-      <a href="#pitch">1&thinsp;min “Pitch” Trailer</a> • <a href="#firstlook">15&thinsp;sec “First Look” Trailer</a>
+      <a href="#ep1">1'25" Episode Pack 1 Announcement</a> •
+      <a href="#pitch">1&thinsp;min “Pitch” Trailer</a> •
+      <a href="#firstlook">15&thinsp;sec “First Look” Trailer</a>
     </div>
     <div class="video_carousel">
+      <div class="video_wrapper" id="ep1">
+        <div class="video_wrapper_inner">
+          <iframe src="https://www.youtube-nocookie.com/embed/ntVW028HXKQ" title="YouTube video player" frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+        </div>
+      </div>
       <div class="video_wrapper" id="pitch">
         <div class="video_wrapper_inner">
-          <!-- Video too big for Vimeo free account.
-          <iframe src="https://player.vimeo.com/video/742895480?h=c5332a67c4&badge=0&autopause=0&player_id=0&app_id=58479" width="1920" height="1080" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="First Look Trailer - Salty Trivia with Candy Barre"></iframe>
-          -->
           <iframe src="https://www.youtube-nocookie.com/embed/LMd3IIJZEoM" title="YouTube video player" frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen></iframe>
@@ -358,10 +365,10 @@
     <section>
       <h4>News</h4>
       <p>
-        <b>Audio editing for Episodes 1, 2, and 3 are done. Stay tuned for a new batch of random questions!</b> You can already play the pilot episode from the link above.
+        <b>Episodes 1, 2, and 3 are out now!</b> A total of 12 questions are planned for release.
       </p>
       <p>
-        <b>We’re looking for voice talents and writers!</b> Come <a href="https://discord.gg/95JWgy9gue">into our Discord server</a>  to look for openings for additional voices, or to apply to be a writer.
+        Come <a href="https://discord.gg/95JWgy9gue">into our Discord server</a> to look for openings for additional voices, show off your trivia writing skills, or just hang out with our crew.
       </p>
     </section>
   </article>
@@ -445,7 +452,7 @@
         <div class="platform">
           <img class="platform-image" src="../img/platform-browser.svg">
           <div class="platform-desc">
-            <b>Browser</b> - Play live on <a href="https://gotm.io/haitouch/salty-trivia">Gotm.io</a> or <a href="https://haitouch.itch.io/salty-trivia">Itch.io</a>. This option has the longest load time (You have to download the game every time), but is compatible with the most devices.
+            <b>Browser</b> - Play live on <a href="https://haitouch.itch.io/salty-trivia">itch.io</a>. This option is not as performant as the others, but is compatible with the most devices.
           </div>
         </div>
         <div class="platform">
@@ -467,7 +474,7 @@
           </b>
         </div>
       </div>
-      <p>You can download all the non-browser versions from <a href="https://haitouch.itch.io/salty-trivia">the Itch.io listing</a>.
+      <p>You can download all the non-browser versions from <a href="https://haitouch.itch.io/salty-trivia">the itch.io listing</a>.
     </section>
   </article>
   <article id="notes">
