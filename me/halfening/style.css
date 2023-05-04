@@ -1,0 +1,140 @@
+html {
+    font-family: 'Barlow Semi Condensed', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: 500;
+    background: black;
+    color: white;
+}
+
+h3 {
+    font-family: 'Abril Fatface', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: 400;
+    font-size: 150%;
+    text-align: center;
+}
+
+b {
+    font-weight: 800;
+}
+
+body {
+    margin: 0;
+}
+
+#bg-effect {
+    pointer-events: none;
+    position: fixed;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image:
+      linear-gradient(0deg,
+        transparent 10%,
+        #7f7f7f 100%),
+      url('../salty/perlin.gif');
+    background-size: cover, 512px 512px;
+    background-repeat: no-repeat, repeat;
+    background-position: center;
+    background-attachment: fixed;
+    animation: bg 30s infinite linear;
+    background-blend-mode: normal, normal;
+    mix-blend-mode: overlay;
+    opacity: 0.5;
+}
+
+@keyframes bg {
+  from {
+    background-position-y: center, top 512px
+  }
+
+  to {
+    background-position-y: center, top 0
+  }
+}
+
+a {
+    color: #60e4d9;
+}
+a:visited {
+    color: #c870ff;
+}
+
+a.squiffy-link
+{
+    text-decoration: underline;
+    color: #eaff00;
+    cursor: pointer;
+}
+a.squiffy-link.disabled
+{
+    text-decoration: inherit;
+    color: inherit !important;
+    cursor: inherit;
+}
+a.squiffy-header-link
+{
+    text-decoration: underline;
+    color: #eaff00;
+    cursor: pointer;
+}
+div#squiffy-container
+{
+    max-width: 700px;
+    min-height: 100vh;
+    margin-left: auto;
+    margin-right: auto;
+    background-image: radial-gradient(circle,
+        rgb(41, 122, 75),rgb(22, 77, 51));
+}
+div#squiffy-header
+{
+    font-size: 14px;
+    text-align: right;
+}
+div#squiffy
+{
+    font-size: 18px;
+    margin: 0 1em;
+}
+hr {
+    border: 0;
+    height: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    margin-top: 16px; margin-bottom: 16px;
+}
+
+div#squiffy .nameSpan {
+    color: #e8365c;
+}
+
+div#squiffy .actionSpan {
+    background:#19a381
+}
+
+div#squiffy blockquote {
+    background: rgba(22, 77, 51, 0.7);
+    border-left: 0.25em solid rgba(255, 255, 255, 0.7);
+    margin: 0.25em;
+    padding: 0.75em;
+    font-size: 115%;
+}
+
+div#squiffy .scoreboard {
+    margin: 0 -1em;
+}
+
+div#squiffy .embedAspectRatio {
+    position: relative;
+    height: 0;
+    padding-bottom: 56.25%;
+}
+div#squiffy .embedAspectRatio iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
