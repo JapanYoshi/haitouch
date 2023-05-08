@@ -1,15 +1,43 @@
 html {
-    font-family: 'Barlow Semi Condensed', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    font-weight: 500;
     background: black;
     color: white;
 }
 
-h3 {
-    font-family: 'Abril Fatface', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+html:lang(en) {
+    font-family: 'Barlow Semi Condensed', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: 500;
+}
+
+html:lang(ja) {
+    font-family: "M PLUS 1p", "メイリオ", sans-serif;
     font-weight: 400;
+    line-height: 2;
+    word-break: break-all;
+}
+
+h3 {
     font-size: 150%;
     text-align: center;
+}
+
+@font-face {
+    font-family: '_abril';
+    src: local('Abril Fatface'), url(https://fonts.gstatic.com/s/abrilfatface/v19/zOL64pLDlL1D99S8g8PtiKchq-dmjQ.woff2) format('woff2');
+    font-weight: 700;
+}
+
+h3 {
+    background-image: linear-gradient(to left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0));
+}
+
+h3:lang(en) {
+    font-family: '_abril', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: 700;
+}
+
+h3:lang(ja) {
+    font-family: '_abril', 'Noto Serif JP', serif;
+    font-weight: 700;
 }
 
 b {
@@ -110,8 +138,17 @@ div#squiffy .nameSpan {
     color: #e8365c;
 }
 
+div#squiffy .nameSpan:lang(ja) {
+    background-image: linear-gradient(to left, rgba(80, 0, 0, 0), rgba(80, 0, 0, 0.4) 25%);
+    padding-right: 1rem;
+}
+
 div#squiffy .actionSpan {
     background:#19a381
+}
+
+div#squiffy .actionSpan:lang(ja) {
+    padding: 0 0.5em!important;
 }
 
 div#squiffy blockquote {
