@@ -1,0 +1,45 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>hai!touch Гавань</title>
+  <meta property="og:title" value="hai!touch Галя">
+  <meta property="twitter:title" value="hai!touch Галя">
+  <!-- boilerplate -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- favicons -->
+  <link rel="icon" href="../favicon.ico" type="image/x-icon" sizes="16x16">
+  <link rel="icon" href="../favicon-128.png" sizes="128x128">
+  <link rel="icon" href="../favicon-180.png" sizes="180x180">
+  <link rel="icon" href="../favicon-192.png" sizes="192x192">
+  <!-- page metadata -->
+  <meta name="description"
+  content="Управляйте играми hai!touch Studios с помощью браузера телефона, планшета или компьютера.">
+<meta property="og:description"
+  content="Управляйте играми hai!touch Studios с помощью браузера телефона, планшета или компьютера.">
+<meta name="twitter:description"
+  content="Управляйте играми hai!touch Studios с помощью браузера телефона, планшета или компьютера.">
+  <!-- sharable image -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@hai1touch">
+  <meta name="twitter:creator" content="@hai1touch">
+  <meta property="og:image" content="https://haitouch.ga/twitter_card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="628">
+</head>
+<body style="background:#3a2b3f;font-family:sans-serif">
+  <a style="color:white" href="https://haitouch-9320f.web.app/ru">Нажмите здесь, если вы не перенаправлены автоматически.</a>
+  <script>
+  document.title = "Redirecting...";
+    // allow players to open the controller app via the shortcut 'haitouch.ga/te#ABCD'
+  const tester = /^#?([A-Z]{4})$/i;
+  let link = document.querySelector("a");
+  if (tester.test(window.location.hash)) {
+    const rc = location.hash.match(tester)[1].toUpperCase();
+    link.href = link.href + '?r=' + rc;
+  }
+  link.click();
+  // now you can redirect knowing the room code
+  </script>
+</body>
+</html>
