@@ -78,14 +78,14 @@ header a:visited::before {
     margin: 0 auto;
 }
 
-#main a {
+a {
     color: var(--haitouch-blue2);
     position: relative;
     text-decoration: none;
     z-index: 1;
 }
 
-#main a::before {
+a::before {
     content: "";
     position: absolute;
     left: 0;
@@ -97,15 +97,15 @@ header a:visited::before {
     transition: height 0.125s ease-out;
 }
 
-#main a:hover::before {
+a:hover::before {
     height: 1em;
 }
 
-#main a:visited {
+a:visited {
     color: var(--haitouch-pink2);
 }
 
-#main a:visited:before {
+a:visited:before {
     background-color: var(--haitouch-pink);
 }
 

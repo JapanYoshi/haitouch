@@ -110,42 +110,46 @@
       margin: 0;
       padding: 3rem 1rem;
       background-image: radial-gradient(circle,
-      #71c586,#60955f);
+          #71c586, #60955f);
       background-attachment: fixed;
     }
 
     article:nth-child(2n) {
       background-image: radial-gradient(circle,
-      rgb(228, 96, 136), rgb(104, 36, 51));
+          rgb(228, 96, 136), rgb(104, 36, 51));
     }
 
     article:nth-child(2n+1) {
       background-image: radial-gradient(circle,
-          rgb(41, 122, 75),rgb(22, 77, 51));
+          rgb(41, 122, 75), rgb(22, 77, 51));
     }
 
     article#title {
       margin-top: 3rem;
       /* header height */
       background-image: radial-gradient(circle,
-      #71c586,#60955f);
+          #71c586, #60955f);
     }
 
     article#trailer {
       background-image: radial-gradient(circle,
-          rgb(40, 39, 44),rgb(10, 8, 16));
+          rgb(40, 39, 44), rgb(10, 8, 16));
     }
 
     article#news {
       background-image: radial-gradient(circle,
-          rgb(250, 236, 110),rgb(165, 127, 67));
+          rgb(250, 236, 110), rgb(165, 127, 67));
     }
 
     img#gamelogo {
       position: relative;
+      display: block;
       z-index: 3;
-      width: 100%;
+      width: auto;
       height: auto;
+      max-width: 100%;
+      max-height: calc(100svh - 3rem);
+      margin: 0 auto;
       transform: translate(0);
     }
 
@@ -163,31 +167,32 @@
       position: relative;
       z-index: 3;
       max-width: 500px;
-      background: linear-gradient(90deg,
-          rgba(255, 255, 255, 0.8) 75%,
-          rgba(255, 255, 255, 0.5) 90%,
-          rgba(255, 255, 255, 0) 100%);
+      background: rgba(255, 255, 255, 0.8);
       border-left: 0.5rem solid black;
       padding: 1rem;
       color: black;
       margin: 1rem auto;
     }
 
-    .synopsis p:first-child {
+    p:first-child {
       margin-block-start: 0;
+    }
+
+    p:last-child {
+      margin-block-end: 0;
     }
 
     .release {
       font-weight: 800;
       font-size: 1.50rem;
-      color: #f876a0;
+      color: #e81759;
     }
 
     b {
       font-weight: 800;
     }
 
-    h4 {
+    h3 {
       margin: 0;
       font-size: 2.00rem;
       letter-spacing: 0.15em;
@@ -195,9 +200,15 @@
       font-style: italic;
       font-weight: 800;
     }
-
-    p:last-child {
-      margin-block-end: 0;
+    
+    h4 {
+      font-weight: bold;
+      font-size: 1.25rem;
+      margin: 1rem 0 0;
+    }
+    
+    h4 + p {
+      margin-top: 0rem;
     }
 
     section {
@@ -248,8 +259,28 @@
       display: none;
     }
 
+    .video_selector {
+      position: relative;
+      z-index: 2;
+      height: 3rem;
+      margin-bottom: -6rem;
+      overflow-x: auto;
+      overflow-y: hidden;
+      white-space: nowrap;
+    }
+
+    .video_selector a,
+    .video_selector a:visited {
+      color: var(--haitouch-blue);
+    }
+
     .video_carousel {
+      position: relative;
+      z-index: 1;
       width: 100%;
+      /* video width */
+      --vwidth: calc(100vw - 3rem);
+      --vheight: calc(var(--vwidth) * 9 / 16);
       text-align: center;
       display: flex;
       overflow-x: auto;
@@ -257,13 +288,13 @@
       scroll-snap-type: x mandatory;
       scroll-behavior: smooth;
       -webkit-overflow-scrolling: touch;
-      height: calc((100% - 3rem) * 9 / 16 + 3rem);
+      height: calc(var(--vheight) + 8rem);
     }
-    
+
     .video_wrapper {
       scroll-snap-align: start;
       flex-shrink: 0;
-      width: calc((100vw - 3rem));
+      width: var(--vwidth);
       margin-right: 8rem;
       position: relative;
       display: flex;
@@ -273,27 +304,89 @@
     }
 
     .video_wrapper_inner {
-      width: calc(100vw - 3rem);
-      margin-top: 4rem;
-      padding-bottom: calc((100vw - 3rem) * 9 / 16);
+      width: var(--vwidth);
+      margin-top: 68rem;
+      padding-bottom: var(--vheight);
     }
 
     .video_wrapper iframe {
       position: absolute;
-      width: calc(100vw - 3rem);
-      height: calc((100vw - 3rem) * 9 / 16);
-      top: 4rem; /*why?!*/
+      width: var(--vwidth);
+      height: var(--vheight);
+      top: 6rem;
       left: 0;
       right: 0;
       bottom: 0;
     }
-    
+
     .platform {
       background: white;
       margin-bottom: 0.5rem;
       display: flex;
       flex-direction: row;
       align-items: center;
+    }
+
+    label[for='showCheatCodes'] {
+      background: rgb(41, 122, 75);
+      color: white;
+      padding: 0.5rem;
+      border-radius: 0.25rem;
+      display: inline-block;
+      margin-bottom: 1rem;
+    }
+
+    input#showCheatCodes {
+      display: fixed;
+      opacity: 0;
+    }
+
+    .spoilerbox {
+      max-width: 500px;
+      max-height: 2.5rem;
+      margin: 1.5rem auto;
+      padding: 1rem;
+      background: white;
+      transition: max-height ease 500ms;
+      overflow-y: hidden;
+    }
+
+    input[type='checkbox']:checked+.spoilerbox {
+      max-height: 100svh;
+      transition: max-height ease 500ms;
+    }
+
+    input[type='checkbox']:checked+.spoilerbox>div {
+      max-height: 100svh;
+      overflow-y: scroll;
+    }
+
+    kbd {
+      display: inline-block;
+      background: silver;
+      box-shadow: 0px 1px 2px slategray;
+      min-width: 1em;
+      height: 1.5em;
+      margin: -0.25em 0.25em;
+      text-align: center;
+      font-size: 80%;
+      line-height: 1.5em;
+      border-radius: 0.25rem;
+      font-family: sans-serif;
+    }
+
+    img.button {
+      width: 1em;
+      height: 1em;
+      margin: 0.125em 0 -0.125em;
+    }
+
+    img.cheatIcon {
+      width: 16px;
+      height: 16px;
+      image-rendering: pixelated;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: crisp-edges;
     }
   </style>
 </head>
@@ -310,21 +403,25 @@
   <article id="synopsis">
     <div class="synopsis">
       <p>
-        Salty Trivia is a sassy party trivia game with full voice acting. Use the Lifesaver to your advantage, and don’t talk over the host’s snide remarks!
+        Salty Trivia is a sassy party trivia game with full voice acting. Use the Lifesaver to your advantage, and don’t
+        talk over the host’s snide remarks!
       </p>
-      <p class="release">Episodes 1, 2, and 3 available now!</p>
-      <p><a href="https://haitouch.itch.io/salty-trivia">
-        Play now on itch.io
-      </a></p>
-      <p><a href="#platforms">
-        Find out all the platforms you can play on
-      </a></p>
-      <p><a href="https://discord.gg/95JWgy9gue">
-        Follow progress on Discord
-      </a></p>
-      <p><a href="https://github.com/JapanYoshi/salty">
-        See source code
-      </a></p>
+      <p class="release">Episode Pack 2 available now!</p>
+      <p>Want to skip ahead? You can unlock Epsiode 4 immediately using a <a href="#cheatcodes">cheat code</a>!</p>
+      <ul>
+        <li><a href="https://haitouch.itch.io/salty-trivia">
+            Play now on itch.io
+          </a></li>
+        <li><a href="#platforms">
+            Find out all the platforms you can play on
+          </a></li>
+        <li><a href="https://discord.gg/95JWgy9gue">
+            Follow progress on Discord
+          </a></li>
+        <li><a href="https://github.com/JapanYoshi/salty">
+            See source code
+          </a></li>
+      </ul>
     </div>
   </article>
   <article id="trailer">
@@ -337,20 +434,23 @@
       <div class="video_wrapper" id="ep1">
         <div class="video_wrapper_inner">
           <iframe src="https://www.youtube-nocookie.com/embed/ntVW028HXKQ" title="YouTube video player" frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen></iframe>
+            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"
+            allowfullscreen></iframe>
         </div>
       </div>
       <div class="video_wrapper" id="pitch">
         <div class="video_wrapper_inner">
           <iframe src="https://www.youtube-nocookie.com/embed/LMd3IIJZEoM" title="YouTube video player" frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen></iframe>
+            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"
+            allowfullscreen></iframe>
         </div>
       </div>
       <div class="video_wrapper" id="firstlook">
         <div class="video_wrapper_inner">
-          <iframe src="https://player.vimeo.com/video/742895480?h=c5332a67c4&badge=0&autopause=0&player_id=0&app_id=58479" width="1920" height="1080" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="First Look Trailer - Salty Trivia with Candy Barre"></iframe>
+          <iframe
+            src="https://player.vimeo.com/video/742895480?h=c5332a67c4&badge=0&autopause=0&player_id=0&app_id=58479"
+            width="1920" height="1080" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen
+            title="First Look Trailer - Salty Trivia with Candy Barre"></iframe>
           <!--
             Replace YouTube embed with Vimeo embed.
             <iframe src="https://www.youtube-nocookie.com/embed/0zrQRdBzUQE" title="YouTube video player" frameborder="0"
@@ -363,28 +463,55 @@
   </article>
   <article id="news">
     <section>
-      <h4>News</h4>
+      <h3>News</h3>
+      <h4>Episode Pack 2 release</h4>
       <p>
-        <b>Episodes 1, 2, and 3 are out now!</b> A total of 12 questions are planned for release.
+        Episodes 1 through 6 are now available! A total of 12 episodes of 13 questions each is planned for
+        release over the course of this project. <a href="https://haitouch.itch.io/salty-trivia">The Web version</a> is automatically updated. For existing users of other
+        platforms, please download the updated version.
+      </p>
+      <h4>Russian localization</h4>
+      <p>
+        A Russian localization of this game is underway by <a href="https://the.jackbox.su">The Box</a>! Visit
+        their website for links to their official Discord, vKontakte, YouTube, and Boosty (donations) account.
+      </p>
+      <h4>Discord server</h4>
+      <p>
+        Join <a href="https://discord.gg/95JWgy9gue">the official hai!touch Studios Discord server</a> to report
+        question inaccuracies or just hang out.
+      </p>
+      <h4>Please consider donating</h4>
+      <p>
+        If you appreciate the effort my team and I took in:
+      </p>
+      <ul>
+        <li>programming at least 11988 lines of GDScript code across 65 files</li>
+        <li>writing 187 unique questions</li>
+        <li>recording and editing 3 hours 53 minutes 36 seconds of unique voice acting</li>
+        <li>adding and maintaining phones-as-controllers support</li>
+      </ul>
+      <p>
+        and more, please consider <a href="https://ko-fi.com/itsspelledhaley">donating</a> to support further development!
       </p>
       <p>
-        Come <a href="https://discord.gg/95JWgy9gue">into our Discord server</a> to look for openings for additional voices, show off your trivia writing skills, or just hang out with our crew.
+        <i>Note: Statistics are accurate as of Episode Pack 2.</i>
       </p>
     </section>
   </article>
   <article id="features">
     <section>
-      <h4>Features</h4>
+      <h3>Features</h3>
       <ul>
-        <li>Choose from 12 fully-voiced episodes, or randomly generate a surprise!</li>
-        <li>A sassy host narrates over 150 (planned) unique questions!</li>
+        <li>Choose from 12 fully-voiced episodes (6 of which are out now), or randomly generate a surprise!</li>
+        <li>A sassy host narrates hundreds of unique questions!</li>
         <li>Use a <b>Lifesaver</b> to turn a 4-choice question into a 2-choice one.</li>
         <li>Up to 8 players play on a keyboard, a controller, a touchscreen, or even a phone!</li>
         <li>Original music for every occasion!</li>
-        <li>7 question types!
+        <li>8 question types!
           <ul>
             <li>
-              <b>Standard</b> — 4 choices, only one of which is right. If you answer right, you win money! If you answer wrong, you hear a
+              <b>Standard</b> — 4 choices, only one of which is right. If you answer right, you win money! If you answer
+              wrong, you hear a
               zinger from the host. And lose money.
             </li>
             <li>
@@ -404,7 +531,12 @@
               passes, the prize whittles down to zero. Only the first one to get it right will win the money.
             </li>
             <li>
-              <b>Rage Against the Times</b> — Ozzy, “our resident squatter”, is an old man who’s always angry about one thing or another. Find out why he’s mad this time.
+              <b>Rage Against the Times</b> — Ozzy, “our resident squatter”, is an old man who’s always angry about one
+              thing or another. Find out why he’s mad this time. (Added in Episode Pack 1)
+            </li>
+            <li>
+              <b>Big Brain Storming</b> — The brainstorming exercise went too far without an entertaining question. From
+              three possible association chains, figure out the common starting point. (New in Episode Pack 2)
             </li>
             <li>
               <b>Sugar Rush</b> — A spooky speed round where you select only the options that match a description, based
@@ -421,7 +553,7 @@
   </article>
   <article id="controls">
     <section>
-      <h4>Control schemes</h4>
+      <h3>Control schemes</h3>
       <p>Up to <b>8 contestants</b> can play, mixing-and-matching the following control schemes:</p>
       <ul>
         <li>
@@ -444,42 +576,186 @@
   </article>
   <article id="platforms">
     <section>
-      <h4>Platforms</h4>
+      <h3>Platforms</h3>
       <p>
         Salty Trivia is available on the following platforms:
       </p>
       <div class="platform-list">
         <div class="platform">
-          <img class="platform-image" src="../img/platform-browser.svg">
+          <img class="platform-image" src="../img/platform-browser.svg" role="presentation">
           <div class="platform-desc">
-            <b>Browser</b> - Play live on <a href="https://haitouch.itch.io/salty-trivia">itch.io</a>. This option is not as performant as the others, but is compatible with the most devices.
+            <b>Browser</b> - Play live on <a href="https://haitouch.itch.io/salty-trivia">itch.io</a>. This option is
+            not as performant as the others, but is compatible with the most devices.
           </div>
         </div>
         <div class="platform">
-          <img class="platform-image" src="../img/platform-windows.svg">
+          <img class="platform-image" src="../img/platform-windows.svg" role="presentation">
           <div class="platform-desc">
-            <b>Windows executable</b> - Play as a standalone application on your Windows computer. No need to install, just download, extract, and run.
+            <b>Windows executable</b> - Play as a standalone application on your Windows computer. No need to install,
+            just download, extract, and run.
           </div>
         </div>
         <div class="platform">
-          <img class="platform-image" src="../img/platform-linux.svg">
+          <img class="platform-image" src="../img/platform-linux.svg" role="presentation">
           <div class="platform-desc">
-            <b>Linux executable</b> - Play as a standalone application on your Linux computer. No need to install, just download, extract, and run.
+            <b>Linux executable</b> - Play as a standalone application on your Linux computer. No need to install, just
+            download, extract, and run. If you don’t have the option to run it, go to file properties and turn on the “execute” permission.
           </div>
         </div>
         <div class="platform">
-          <img class="platform-image" src="../img/platform-android.svg">
+          <img class="platform-image" src="../img/platform-android.svg" role="presentation">
           <div class="platform-desc">
-            <b>Android app</b> - Install the .APK file as an app on your Android phone. (You will need to enable “Install from unknown sources” for this.)
-          </b>
+            <b>Android app</b> - Install the .APK file as an app on your Android phone. (You will need to enable
+            “Install from unknown sources” for this.)
+            </b>
+          </div>
         </div>
-      </div>
-      <p>You can download all the non-browser versions from <a href="https://haitouch.itch.io/salty-trivia">the itch.io listing</a>.
+        <p>You can download all the non-browser versions from <a href="https://haitouch.itch.io/salty-trivia">the
+            itch.io listing</a>.
     </section>
+  </article>
+  <article id="cheatcodes">
+    <section>
+      <h3>Cheat Codes</h3>
+      <p><b>Spoilers! If you do not want to get these secret perks, and instead play the game legit, skip right ahead.
+          Otherwise, click the button below.</b></p>
+    </section>
+    <input type="checkbox" id="showCheatCodes">
+    <div class="spoilerbox">
+      <div>
+        <label for="showCheatCodes">Show/hide cheat codes</label>
+        <h3>How to open the cheat code menu</h3>
+        <p>
+          To enter the cheat code menu, go to the title screen and press the following sequence of keys:
+        </p>
+        <ul>
+          <li>
+            Keyboard:
+            <kbd title="arrow up">↑</kbd>
+            <kbd title="arrow left">←</kbd>
+            <kbd title="arrow right">→</kbd>
+            <kbd title="arrow down">↓</kbd>
+            <kbd title="space">␣</kbd>
+            <kbd title="enter">↵</kbd>
+          </li>
+          <li>
+            Controller:
+            <img class="button" src="./salty/dpad.svg" alt="D-Pad up" title="D-Pad up">
+            <img class="button" src="./salty/dpad.svg" style="transform:rotate(-90deg)" alt="D-Pad left"
+              title="D-Pad left">
+            <img class="button" src="./salty/dpad.svg" style="transform:rotate(90deg)" alt="D-Pad right"
+              title="D-Pad right">
+            <img class="button" src="./salty/dpad.svg" style="transform:rotate(180deg)" alt="D-Pad down"
+              title="D-Pad down">
+            <img class="button" src="./salty/btn.svg" alt="Face button up" title="Face button up">
+            <img class="button" src="./salty/btn.svg" style="transform:rotate(90deg)" alt="Face button right"
+              title="Face button right">
+          </li>
+        </ul>
+        <h3>Cheat codes list</h3>
+        <p>
+          In the cheat code menu, you will see a list of <i>togglable</i> cheat codes that you have already unlocked.
+          (Cheat codes with a one-time effect will not be listed, and instead take effect upon entering the cheat code.)
+          To enter a cheat code, press <kbd title="arrow right">→</kbd>, press <img class="button"
+            src="./salty/dpad.svg" style="transform:rotate(90deg)" alt="D-Pad right" title="D-Pad right">, or click the
+          description box on the left side of the menu.
+        </p>
+        <h3>How to enter cheat codes</h3>
+        <p>Once you see an arcade machine on the screen, you may now enter the cheat code that you want to enter. Click
+          on the button of the corresponding color on the screen, or press the following buttons:</p>
+        <ul>
+          <li>
+            <img class="cheatIcon" src="./salty/cheat0.gif" title="Blue"> = <kbd title="space">␣</kbd> / <img
+              class="button" src="./salty/btn.svg" alt="Face button up" title="Face button up">
+          </li>
+          <li>
+            <img class="cheatIcon" src="./salty/cheat1.gif" title="Green"> = <kbd title="shift">⇑</kbd> / <img
+              class="button" src="./salty/btn.svg" style="transform:rotate(-90deg)" alt="Face button left"
+              title="Face button left">
+          </li>
+          <li>
+            <img class="cheatIcon" src="./salty/cheat2.gif" title="Red"> = <kbd title="enter">↵</kbd> / <img
+              class="button" src="./salty/btn.svg" style="transform:rotate(90deg)" alt="Face button right"
+              title="Face button right">
+          </li>
+          <li>
+            <img class="cheatIcon" src="./salty/cheat3.gif" title="Yellow"> = <kbd title="escape">Esc</kbd> / <img
+              class="button" src="./salty/btn.svg" style="transform:rotate(180deg)" alt="Face button down"
+              title="Face button down">
+          </li>
+        </ul>
+        <h3>List of cheat codes</h3>
+        <ul>
+          <li>
+            Unlock Episode 4:
+            <img class="cheatIcon" src="./salty/cheat1.gif" title="Green">
+            <img class="cheatIcon" src="./salty/cheat0.gif" title="Blue">
+            <img class="cheatIcon" src="./salty/cheat2.gif" title="Red">
+            <img class="cheatIcon" src="./salty/cheat0.gif" title="Blue">
+            <img class="cheatIcon" src="./salty/cheat3.gif" title="Yellow">
+            <img class="cheatIcon" src="./salty/cheat1.gif" title="Green">
+            <img class="cheatIcon" src="./salty/cheat2.gif" title="Red">
+            <img class="cheatIcon" src="./salty/cheat3.gif" title="Yellow">
+          </li>
+          <li>
+            Unlock all episodes:
+            <img class="cheatIcon" src="./salty/cheat2.gif" title="Red">
+            <img class="cheatIcon" src="./salty/cheat1.gif" title="Green">
+            <img class="cheatIcon" src="./salty/cheat3.gif" title="Yellow">
+            <img class="cheatIcon" src="./salty/cheat0.gif" title="Blue">
+            <img class="cheatIcon" src="./salty/cheat0.gif" title="Blue">
+            <img class="cheatIcon" src="./salty/cheat1.gif" title="Green">
+            <img class="cheatIcon" src="./salty/cheat2.gif" title="Red">
+            <img class="cheatIcon" src="./salty/cheat2.gif" title="Red">
+          </li>
+          <li>
+            Unlock all achievements:
+            <img class="cheatIcon" src="./salty/cheat3.gif" title="Yellow">
+            <img class="cheatIcon" src="./salty/cheat1.gif" title="Green">
+            <img class="cheatIcon" src="./salty/cheat3.gif" title="Yellow">
+            <img class="cheatIcon" src="./salty/cheat0.gif" title="Blue">
+            <img class="cheatIcon" src="./salty/cheat2.gif" title="Red">
+            <img class="cheatIcon" src="./salty/cheat2.gif" title="Red">
+            <img class="cheatIcon" src="./salty/cheat2.gif" title="Red">
+            <img class="cheatIcon" src="./salty/cheat0.gif" title="Blue">
+          </li>
+          <li>
+            No pause penalty:
+            <img class="cheatIcon" src="./salty/cheat0.gif" title="Blue">
+            <img class="cheatIcon" src="./salty/cheat1.gif" title="Green">
+            <img class="cheatIcon" src="./salty/cheat3.gif" title="Yellow">
+            <img class="cheatIcon" src="./salty/cheat3.gif" title="Yellow">
+            <img class="cheatIcon" src="./salty/cheat1.gif" title="Green">
+            <img class="cheatIcon" src="./salty/cheat2.gif" title="Red">
+            <img class="cheatIcon" src="./salty/cheat2.gif" title="Red">
+            <img class="cheatIcon" src="./salty/cheat0.gif" title="Blue">
+          </li>
+          <li>
+            No wrong penalty:
+            <img class="cheatIcon" src="./salty/cheat1.gif" title="Green">
+            <img class="cheatIcon" src="./salty/cheat0.gif" title="Blue">
+            <img class="cheatIcon" src="./salty/cheat0.gif" title="Blue">
+            <img class="cheatIcon" src="./salty/cheat2.gif" title="Red">
+            <img class="cheatIcon" src="./salty/cheat1.gif" title="Green">
+            <img class="cheatIcon" src="./salty/cheat3.gif" title="Yellow">
+            <img class="cheatIcon" src="./salty/cheat3.gif" title="Yellow">
+            <img class="cheatIcon" src="./salty/cheat0.gif" title="Blue">
+          </li>
+        </ul>
+        <p>When you’re done, press
+          <kbd title="arrow left">←</kbd>, press <img class="button" src="./salty/dpad.svg"
+            style="transform:rotate(-90deg)" alt="D-Pad left" title="D-Pad left">, or click on the joystick to return to
+          the previous screen.
+        </p>
+        <h3>Note on togglable cheat codes</h3>
+        <p>When togglable cheat codes are activated, nothing will count towards your achievements or high score. If you
+          want to unlock achievements, please turn off all cheat codes.</p>
+      </div>
+    </div>
   </article>
   <article id="notes">
     <section>
-      <h4>Notes</h4>
+      <h3>Notes</h3>
       <p>
         The gameplay is based mainly on the <i>You Don’t Know Jack</i> series of games, as well as other trivia games.
         If you like this game, please support Jackbox Games’ official releases such as <a
@@ -492,14 +768,21 @@
       </p>
       <ul>
         <li>
-          <b>“Free”:</b> Not only is the game free (<i>gratis</i>) to play, you are free (<i>libre</i>) to 0) run the program, 1) study and modify the game’s files as you want, 2) reupload and distribute copies of the program, and 3) distribute copies of your modified programs.
+          <b>“Free”:</b> Not only is the game free (<i>gratis</i>) to play, you are free (<i>libre</i>) to 0) run the
+          program, 1) study and modify the game’s files as you want, 2) reupload and distribute copies of the program,
+          and 3) distribute copies of your modified programs.
         </li>
         <li>
-          <b>“Open source”:</b> To achieve the first and third freedoms, the game’s code is open-source, which means all the code that makes up the game is available to see, copy, and modify online (on GitHub in this case). In addition, it uses the Godot game engine, which is similarly free and open source.
+          <b>“Open source”:</b> To achieve the first and third freedoms, the game’s code is open-source, which means all
+          the code that makes up the game is available to see, copy, and modify online (on GitHub in this case). In
+          addition, it uses the Godot game engine, which is similarly free and open source.
         </li>
       </ul>
       <p>
-        However, there are some restrictions. You may not use the code to impersonate us, or otherwise scam people. The recordings of our voices are available for ease of modification, but if you release a modification, you must replace all the provided voice files.
+        However, there are some restrictions. You may not use the code to impersonate us, or otherwise scam people. The
+        recordings of our voices are available for ease of modification, but if you release a modification, you must
+        replace all the provided voice files. In other words, the code is FOSS, but our branding and voices are not
+        Creative Commons.
       </p>
     </section>
   </article>
