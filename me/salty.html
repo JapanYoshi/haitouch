@@ -133,7 +133,7 @@
 
     article#trailer {
       background-image: radial-gradient(circle,
-          rgb(40, 39, 44), rgb(10, 8, 16));
+          rgb(59,58,64), rgb(10, 8, 16));
     }
 
     article#news {
@@ -261,7 +261,7 @@
 
     .video_selector {
       position: relative;
-      z-index: 2;
+      z-index: 3;
       height: 3rem;
       margin-bottom: -6rem;
       overflow-x: auto;
@@ -276,7 +276,7 @@
 
     .video_carousel {
       position: relative;
-      z-index: 1;
+      z-index: 3;
       width: 100%;
       /* video width */
       --vwidth: calc(100vw - 3rem);
@@ -342,6 +342,8 @@
     }
 
     .spoilerbox {
+      position: relative;
+      z-index: 3;
       max-width: 500px;
       max-height: 2.5rem;
       margin: 1.5rem auto;
