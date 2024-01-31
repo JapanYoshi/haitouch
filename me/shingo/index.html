@@ -1,41 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, user-scalable=no">
-		<title>Unsupported</title>
-		<link rel="stylesheet" href="../../style.css">
-		<style>
 
-#center {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-content: center;
-	min-height: 100svh;
-}
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no">
+	<title>Shingo! — Select a version</title>
+	<link rel="stylesheet" href="../../style.css">
+	<style>
+		#center {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-content: center;
+			min-height: 100svh;
+		}
 
-article {
-	margin: 1rem;
-	background: var(--haitouch-purple);
-	padding: 1rem;
-	border-radius: 1rem;
-	color: white;
-	display: block;
-	flex: 0 0 auto;
-}
-		</style>
-	</head>
-	<body>
-		<div id="center">
-			<article>
-				<p>Thank you for your interest in:</p>
-				<img src="logo.png" style="max-width: 100%; width: auto; height: auto;"/>
-				<p>Unfortunately, the standalone Web version does not work when hosted on GitHub Pages. (<a href="https://github.com/godotengine/godot/issues/69020">cf. relevant GitHub issue</a>)</p>
-				<p>Please try <a href="https://haitouch.itch.io/shingo">the itch.io mirror</a> instead. If you are using Android, you can also download a native app from there.</p>
-				<p><b>NEW:</b> Why not try <a href="https://2gd4.me/tidbit/shingo-lite.html">Shingo! Lite</a>, an NES-themed demake with limited features but fast load times?</p>
-			</article>
-		</div>
-	</body>
+		article {
+			margin: 1rem;
+			background: var(--haitouch-purple);
+			padding: 1rem;
+			border-radius: 1rem;
+			color: white;
+			display: block;
+			flex: 0 0 auto;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="center">
+		<article>
+			<p>Thank you for your interest in:</p>
+			<img src="logo.png" style="max-width: 100%; width: auto; height: auto;" />
+			<p>Please select a version:</p>
+			<ul>
+				<li><a href="https://haitouch.itch.io/shingo">Shingo!</a> — Fully-featured version with features like
+					post-game sharing, Hard Mode, Daily Mode, stat tracking, character set restriction, dictionary
+					lookup, and missing word tracking. Longer load time.</li>
+				<li><a href="https://2gd4.me/tidbit/shingo-lite.html">Shingo! Lite</a> — A browser-based demake with a
+					limited feature set but a much faster load time.</li>
+				<li><a href="https://discord.gg/nR7PW5pwzk">Shavian Game Room</a> Discord sserver for advice and game
+					sharing</li>
+			</ul>
+		</article>
+	</div>
+</body>
+
 </html>
-
