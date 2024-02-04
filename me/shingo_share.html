@@ -82,6 +82,11 @@
   </style>
   <script>
 const DEBUG_MODE = false; // used in Codepen
+const DAILY_HEADER = "𐑛𐑱𐑤𐑦 ·𐑖𐑦𐑙𐑜𐑴! #{NUMBER} {SCORE}  \n"
+const DAILY_SHARE_TEXT = [
+  "𐑑𐑩𐑛𐑱𐑟 𐑢𐑻𐑛 𐑑𐑴𐑑𐑩𐑤𐑦 𐑕𐑑𐑳𐑥𐑐𐑑 𐑥𐑰! 𐑔𐑦𐑙𐑒 𐑿 𐑒𐑫𐑛𐑩𐑝 𐑛𐑳𐑯 𐑚𐑧𐑑𐑼?",
+  "𐑲 𐑜𐑧𐑕𐑑 𐑞 𐑛𐑱𐑤𐑦 𐑢𐑻𐑛 𐑦𐑯 {tries} 𐑜𐑴𐑟! 𐑢𐑪𐑯𐑑 𐑑 𐑜𐑦𐑝 𐑦𐑑 𐑩 𐑑𐑮𐑲 𐑑𐑵?"
+]
 const SHARE_TEXT = [
   "𐑞𐑦𐑕 𐑢𐑻𐑛 𐑑𐑴𐑑𐑩𐑤𐑦 𐑕𐑑𐑳𐑥𐑐𐑑 𐑥𐑰! 𐑔𐑦𐑙𐑒 𐑿 𐑒𐑫𐑛𐑩𐑝 𐑛𐑳𐑯 𐑚𐑧𐑑𐑼?",
   "𐑲 𐑜𐑧𐑕𐑑 𐑞 𐑢𐑻𐑛 «{word}» 𐑦𐑯 {tries} 𐑜𐑴𐑟! 𐑢𐑪𐑯𐑑 𐑑 𐑜𐑦𐑝 𐑦𐑑 𐑩 𐑑𐑮𐑲 𐑑𐑵?"
@@ -132,7 +137,7 @@ function enableShare(text, file, fallbackAPI = false) {
   console.log("enableShare");
   document.getElementById("shareBtn").style.display = "";
   if (navigator && navigator.share && !fallbackAPI) {
-    document.getElementById("shareBtn").innerText = "𐑖𐑻";
+    document.getElementById("shareBtn").innerText = "𐑖𐑺";
     document.getElementById("shareBtn").addEventListener("click", async () => {
       var shareData = {
         url: "https://haitouch.ga/me/shingo",
@@ -255,15 +260,30 @@ document.addEventListener("DOMContentLoaded", () => {
     );
     // c: string = encoded list of clues given
     let clueList = decodeClues(DEBUG_MODE ? "e957999fd5ffff" : params.c);
-    let shareText =
-      (success
-        ? SHARE_TEXT[1]
-            .replace(
-              "{word}",
-              guessList.substr(guessList.length - 2 * width, 2 * width)
-            )
-            .replace("{tries}", height)
-        : SHARE_TEXT[0]) + SHARE_SUFFIX;
+    let dayNumber = DEBUG_MODE ? -9 : params.num;
+    let shareText = ""
+    if (dayNumber != -9) {
+      shareText = (
+        success ? (
+          DAILY_SHARE_TEXT[1].replace("{tries}", height)
+        ) : (
+          DAILY_SHERE_TEXT[0]
+        )
+      ) + SHARE_SUFFIX;
+    } else {
+      shareText = (
+        success ? (
+          SHARE_TEXT[1].replace(
+            "{word}",
+            guessList.substr(guessList.length - 2 * width, 2 * width)
+          ).replace(
+            "{tries}", height
+          )
+        ) : (
+          SHARE_TEXT[0]
+        )
+      ) + SHARE_SUFFIX;
+    }
     console.log(success, width, height, guessList, clueList, shareText);
 
     // t: char = "i" for image, "t" for text
@@ -309,16 +329,16 @@ document.addEventListener("DOMContentLoaded", () => {
               break;
           }
         }
-        boardText += "\n";
+        boardText += "  \n";
       }
       if (!success) {
         for (let x = 0; x < width; x++) {
           boardText += "🟥";
         }
         boardText +=
-          guessList.substr(guessList.length - 2 * width, 2 * width) + "\n";
+          guessList.substr(guessList.length - 2 * width, 2 * width) + "  \n";
       }
-      shareText = boardText + shareText;
+      shareText = (dayNumber !== -9 ? DAILY_HEADER.replace("{NUMBER}", dayNumber).replace("{SCORE}", success ? `${height}/7` : "-/7") : "") + boardText + shareText;
       document.getElementById("text_container").style.display = "";
       document.getElementById("text_sharable").value = shareText;
       enableShare(shareText, undefined);
